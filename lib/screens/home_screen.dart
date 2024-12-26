@@ -16,8 +16,13 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.white60,
-        title: Text('week1'),
+        backgroundColor: Colors.green,
+        title: Text(
+          'week1 project',
+          style: TextStyle(color: Colors.white),
+        ),
+        centerTitle: true,
+        // shape: Border(bottom: BorderSide(color: Colors.grey, width: 1)),
       ),
       body: pages[index],
       bottomNavigationBar: BottomNavigationBar(
@@ -30,7 +35,7 @@ class _HomeScreenState extends State<HomeScreen> {
         items: [
           BottomNavigationBarItem(icon: Icon(Icons.call), label: 'call'),
           BottomNavigationBarItem(icon: Icon(Icons.image), label: 'image'),
-          BottomNavigationBarItem(icon: Icon(Icons.add), label: 'fun')
+          BottomNavigationBarItem(icon: Icon(Icons.settings), label: 'setting')
         ],
       ),
     );
