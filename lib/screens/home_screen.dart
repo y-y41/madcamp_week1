@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:madcamp_w1/screens/tab_3.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -10,7 +11,7 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   var index = 0;
 
-  List<Widget> pages = [Text('1page'), Text('2page'), Text('3page')];
+  List<Widget> pages = [Text('1page'), Text('2page'), Tab3()];
 
   @override
   Widget build(BuildContext context) {
