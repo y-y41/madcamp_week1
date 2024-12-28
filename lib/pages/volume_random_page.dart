@@ -49,7 +49,6 @@ class _VolumeRandomPageState extends State<VolumeRandomPage> {
 
   @override
   void dispose() {
-    // TODO: implement dispose
     super.dispose();
     _timer?.cancel();
   }
@@ -65,81 +64,83 @@ class _VolumeRandomPageState extends State<VolumeRandomPage> {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Expanded(
-              child: GridView.builder(
-                  padding: EdgeInsets.all(20),
-                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                      crossAxisCount: 3,
-                      crossAxisSpacing: 5,
-                      mainAxisSpacing: 5),
-                  itemCount: 9,
-                  itemBuilder: (context, index) {
-                    int row = index ~/ 3;
-                    int col = index % 3;
-                    Alignment align =
-                        Alignment(-1.0 + (col * 1.0), -1.0 + (row * 1.0));
-                    return GestureDetector(
-                      onTap: () => onTile(index),
+            child: GridView.builder(
+              padding: EdgeInsets.all(20),
+              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                crossAxisCount: 3,
+                crossAxisSpacing: 8,
+                mainAxisSpacing: 8,
+              ),
+              itemCount: 9,
+              itemBuilder: (context, index) {
+                int row = index ~/ 3;
+                int col = index % 3;
+
+                return GestureDetector(
+                  onTap: () => onTile(index),
+                  child: AspectRatio(
+                    aspectRatio: 1.0,
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.circular(8),
                       child: Container(
-                        decoration: BoxDecoration(
-                            color: _isStopped[index] ? null : Colors.blue,
-                            borderRadius: BorderRadius.circular(8),
-                            image: _isStopped[index]
-                                ? DecorationImage(
-                                    image: AssetImage('assets/images/고양이.png'),
-                                    fit: BoxFit.none,
-                                    alignment: align,
-                                    colorFilter: ColorFilter.mode(
-                                        Colors.grey, BlendMode.multiply))
-                                : null),
-                        child: Center(
-                          child: Text(
-                            _values[index].toString(),
-                            style: TextStyle(
-                                color: Colors.white,
-                                fontSize: 24,
-                                fontWeight: FontWeight.bold),
-                          ),
-                        ),
+                        color: _isStopped[index] ? null : Colors.blue,
+                        child: !_isStopped[index]
+                            ? Center(
+                                child: Text(
+                                  _values[index].toString(),
+                                  style: TextStyle(
+                                      color: Colors.white,
+                                      fontSize: 24,
+                                      fontWeight: FontWeight.bold),
+                                ),
+                              )
+                            : ClipRect(
+                                child: FractionallySizedBox(
+                                  widthFactor: 3.0,
+                                  heightFactor: 3.0,
+                                  alignment: Alignment(
+                                    -1.0 + (col * 2 / 2),
+                                    -1.0 + (row * 2 / 2),
+                                  ),
+                                  child: Image.asset(
+                                    'assets/images/고양이.png',
+                                    fit: BoxFit.cover,
+                                  ),
+                                ),
+                              ),
                       ),
-                    );
-                  })),
+                    ),
+                  ),
+                );
+              },
+            ),
+          ),
           Padding(
             padding: EdgeInsets.all(16),
             child: Column(
               children: [
-                // Slider(
-                //     value: _volume,
-                //     min: 0,
-                //     max: 100,
-                //     onChanged: (value) {
-                //       setState(() {
-                //         _volume = value;
-                //       });
-                //     })
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     ElevatedButton(
-                        onPressed: _isRunning ? null : startRandom,
-                        child: Text('Start')),
-                    SizedBox(
-                      width: 20,
+                      onPressed: _isRunning ? null : startRandom,
+                      child: Text('Start'),
                     ),
+                    SizedBox(width: 20),
                     ElevatedButton(
-                        onPressed: _isRunning ? stopRandom : null,
-                        child: Text('Stop'))
+                      onPressed: _isRunning ? stopRandom : null,
+                      child: Text('Stop'),
+                    ),
                   ],
                 ),
-                SizedBox(
-                  height: 15,
-                ),
+                SizedBox(height: 15),
                 Text(
                   'Volume: ${_volume.toInt()}%',
                   style: TextStyle(fontSize: 18),
                 ),
               ],
             ),
-          )
+          ),
         ],
       ),
     );
