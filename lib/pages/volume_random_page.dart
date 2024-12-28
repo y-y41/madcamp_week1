@@ -66,11 +66,11 @@ class _VolumeRandomPageState extends State<VolumeRandomPage> {
         children: [
           Expanded(
               child: GridView.builder(
-                  padding: EdgeInsets.all(16),
+                  padding: EdgeInsets.all(20),
                   gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                       crossAxisCount: 3,
-                      crossAxisSpacing: 8,
-                      mainAxisSpacing: 8),
+                      crossAxisSpacing: 5,
+                      mainAxisSpacing: 5),
                   itemCount: 9,
                   itemBuilder: (context, index) {
                     int row = index ~/ 3;
@@ -123,7 +123,7 @@ class _VolumeRandomPageState extends State<VolumeRandomPage> {
                         onPressed: _isRunning ? null : startRandom,
                         child: Text('Start')),
                     SizedBox(
-                      width: 10,
+                      width: 20,
                     ),
                     ElevatedButton(
                         onPressed: _isRunning ? stopRandom : null,
