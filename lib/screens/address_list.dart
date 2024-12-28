@@ -1,33 +1,16 @@
 import 'package:flutter/material.dart';
-import 'package:madcamp_w1/screens/color_change.dart';
-import 'package:shared_preferences/shared_preferences.dart';
-import 'package:madcamp_w1/screens/tab_3.dart';
-
-class HomeScreen extends StatefulWidget {
-  const HomeScreen({Key? key}) : super(key: key);
+import 'call_page.dart';
+class AddressList extends StatefulWidget {
+  const AddressList({Key? key}) : super(key: key);
 
   @override
-  State<HomeScreen> createState() => _HomeScreenState();
+  State<AddressList> createState() => _AddressListState();
 }
 
-class _HomeScreenState extends State<HomeScreen> {
-  Color newColor=Colors.green;
-  Future<Color> _loadColor() async{
-    SharedPreferences prefs=await SharedPreferences.getInstance();
-    int savedColorValue=prefs.getInt('savedColor') ?? Colors.green.value;
-    setState(() {
-      newColor=Color(savedColorValue);
-    });
-    return Colors.green;
-  }
-  @override
-  void initState(){
-    super.initState();
-    _loadColor();
-  }
+class _AddressListState extends State<AddressList> {
   var index = 0;
 
-  List<Widget> pages = [Text('1page'), Text('2page'), Tab3()];
+  List<Widget> pages = [CallPage(), Text('2page'), Text('3page')];
 
   @override
   Widget build(BuildContext context) {
@@ -36,7 +19,7 @@ class _HomeScreenState extends State<HomeScreen> {
         backgroundColor: Colors.green,
         title: Text(
           'week1 project',
-          style: TextStyle(color: Colors.green),
+          style: TextStyle(color: Colors.white),
         ),
         centerTitle: true,
         // shape: Border(bottom: BorderSide(color: Colors.grey, width: 1)),
