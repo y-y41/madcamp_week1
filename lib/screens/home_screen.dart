@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:madcamp_w1/screens/color_change.dart';
+import 'package:madcamp_w1/screens/call_page.dart';
+import 'package:madcamp_w1/screens/image_list.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:madcamp_w1/screens/tab_3.dart';
 
@@ -11,23 +12,25 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  Color newColor=Colors.green;
-  Future<Color> _loadColor() async{
-    SharedPreferences prefs=await SharedPreferences.getInstance();
-    int savedColorValue=prefs.getInt('savedColor') ?? Colors.green.value;
+  Color newColor = Colors.green;
+  Future<Color> _loadColor() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    int savedColorValue = prefs.getInt('savedColor') ?? Colors.green.value;
     setState(() {
-      newColor=Color(savedColorValue);
+      newColor = Color(savedColorValue);
     });
     return Colors.green;
   }
+
   @override
-  void initState(){
+  void initState() {
     super.initState();
     _loadColor();
   }
+
   var index = 0;
 
-  List<Widget> pages = [Text('1page'), Text('2page'), Tab3()];
+  List<Widget> pages = [CallPage(), imagelist(), Tab3()];
 
   @override
   Widget build(BuildContext context) {

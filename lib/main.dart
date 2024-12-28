@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:madcamp_w1/screens/color_change.dart';
 import 'package:madcamp_w1/screens/home_screen.dart';
 
 void main() {
