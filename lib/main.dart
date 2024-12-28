@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:madcamp_w1/screens/address_list.dart';
 import 'package:madcamp_w1/screens/home_screen.dart';
 
 void main() {
@@ -17,7 +18,7 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.white),
         useMaterial3: true,
       ),
-      home: HomeScreen(),
+      home: AddressList(),
     );
   }
 }
