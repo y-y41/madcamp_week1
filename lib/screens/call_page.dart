@@ -145,10 +145,6 @@ class _CallPageState extends State<CallPage> {
                   decoration: const InputDecoration(labelText: '특징'),
                   onChanged: (value) => traits = value,
                 ),
-                // TextField(
-                //   decoration: const InputDecoration(labelText: '이미지 URL'),
-                //   onChanged: (value) => imageUrl = value,
-                // ),
                 TextButton(
                   onPressed: () async{
                     String? selectedImageUrl =await Navigator.push(
@@ -162,7 +158,7 @@ class _CallPageState extends State<CallPage> {
                     }
                   },
                   child: const Text('Picture'),
-                  ),
+                ),
               ],
             ),
           ),
@@ -388,9 +384,19 @@ class _CallPageState extends State<CallPage> {
                       controller: traitsController,
                       decoration: const InputDecoration(labelText: '특징'),
                     ),
-                    TextField(
-                      controller: imageUrlController,
-                      decoration: const InputDecoration(labelText: '이미지 URL'),
+                    TextButton(
+                      onPressed: () async{
+                        String? selectedImageUrl =await Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (context) => imagelist2()),
+                        );
+                        if(selectedImageUrl !=null){
+                          setState(() {
+                            imageUrlController.text=selectedImageUrl;
+                          });
+                        }
+                      },
+                      child: const Text('Picture'),
                     ),
                   ],
                 ),

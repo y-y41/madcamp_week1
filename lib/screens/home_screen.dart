@@ -46,7 +46,7 @@ class _HomeScreenState extends State<HomeScreen> {
         backgroundColor: GlobalVariables.appBarColor,
         title: Text(
           'week1 project',
-          style: TextStyle(color: Colors.green),
+          style: TextStyle(color: Colors.white),
         ),
         centerTitle: true,
         // shape: Border(bottom: BorderSide(color: Colors.grey, width: 1)),
