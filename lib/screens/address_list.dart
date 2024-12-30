@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'call_page.dart';
+import 'setting_page.dart';
 class AddressList extends StatefulWidget {
   const AddressList({Key? key}) : super(key: key);
 
@@ -10,7 +11,7 @@ class AddressList extends StatefulWidget {
 class _AddressListState extends State<AddressList> {
   var index = 0;
 
-  List<Widget> pages = [CallPage(), Text('2page'), Text('3page')];
+  List<Widget> pages = [CallPage(), Text('2page'), SettingPage()];
 
   @override
   Widget build(BuildContext context) {

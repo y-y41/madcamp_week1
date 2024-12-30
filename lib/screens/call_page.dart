@@ -91,7 +91,20 @@ class _CallPageState extends State<CallPage> {
       imageUrl: 'lib/screens/image/제리 이미지.png',
     ),
   ];
-
+  String searchQuery = "";
+  void _updateSearchQuery(String query){
+    setState((){
+      searchQuery = query;
+    });
+  }
+  List<Person> get filteredPeople {
+    if (searchQuery.isEmpty) {
+      return people;
+    }
+    return people
+        .where((person) => person.name.toLowerCase().contains(searchQuery.toLowerCase()))
+        .toList();
+  }
   void _addPerson(BuildContext context) {
     // Temporary variables to hold the form input
     String name = '';
@@ -183,8 +196,22 @@ class _CallPageState extends State<CallPage> {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Cat List Page'),
+        bottom: PreferredSize(
+          preferredSize: const Size.fromHeight(48.0),
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 16.0),
+            child: TextField(
+              onChanged: _updateSearchQuery,
+              decoration: const InputDecoration(
+                hintText: "검색",
+                border: OutlineInputBorder(),
+                prefixIcon: Icon(Icons.search),
+              ),
+            ),
+          ),
+        ),
       ),
-      body: _buildList(people, context),
+      body: _buildList(filteredPeople, context),
       floatingActionButton: FloatingActionButton(
         onPressed: () => _addPerson(context),
         child: const Icon(Icons.add),
