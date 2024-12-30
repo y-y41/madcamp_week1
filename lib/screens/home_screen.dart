@@ -1,9 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:madcamp_w1/screens/color_setting.dart';
 import 'package:madcamp_w1/screens/call_page.dart';
 import 'package:madcamp_w1/screens/image_list.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:madcamp_w1/screens/tab_3.dart';
 
+class GlobalVariables{
+  static Color appBarColor=Colors.green;
+  static void updatecolor(Color newColor){
+    appBarColor=newColor;
+  }
+}
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
 
@@ -36,7 +43,7 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.green,
+        backgroundColor: GlobalVariables.appBarColor,
         title: Text(
           'week1 project',
           style: TextStyle(color: Colors.white),
