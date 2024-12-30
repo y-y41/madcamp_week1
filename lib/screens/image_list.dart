@@ -116,10 +116,10 @@ class _imagelist extends State<imagelist> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text("Image"),
-        centerTitle: true,
-      ),
+      // appBar: AppBar(
+      //   title: const Text("Image"),
+      //   centerTitle: true,
+      // ),
       body: GridView.builder(
           itemCount: imagelist.length,
           gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(

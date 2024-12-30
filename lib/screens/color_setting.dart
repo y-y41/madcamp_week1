@@ -140,7 +140,7 @@ class _RotatingBarState extends State<RotatingBar> with SingleTickerProviderStat
             }
             _controller.forward();
             Future.delayed(_controller.duration!,() {
-              Navigator.push(
+              Navigator.pushReplacement(
                 context,
                 MaterialPageRoute(builder: (context) => HomeScreen()),
               );
