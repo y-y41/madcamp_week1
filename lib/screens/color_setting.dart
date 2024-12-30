@@ -27,8 +27,8 @@ class _RotatingBarState extends State<RotatingBar> with SingleTickerProviderStat
   Offset initialTouchPoint=Offset(0,0);
   double angle = 0.0; // Current angle of the bar
   double initialAngle=0.0;
-  double minAngle=-pi/2.5;
-  double maxAngle=pi/9.5;
+  double minAngle=-pi/3.5;
+  double maxAngle=pi/8.5;
 
   bool isLoading=true;
 
@@ -67,7 +67,7 @@ class _RotatingBarState extends State<RotatingBar> with SingleTickerProviderStat
     _controller.addListener((){
       setState(() {
         if(targetAngle<0){
-          angle=targetAngle + _animation.value*1.45;
+          angle=targetAngle + _animation.value*1.25;
         }else{
           angle=targetAngle - _animation.value*0.65;
         }
@@ -103,7 +103,6 @@ class _RotatingBarState extends State<RotatingBar> with SingleTickerProviderStat
     if(isLoading){
       return Center(child: CircularProgressIndicator());
     }
-    final currentColor=calculate(angle);
     return LayoutBuilder(
       builder: (context, constraints) {
         final size = constraints.biggest;
@@ -153,35 +152,39 @@ class _RotatingBarState extends State<RotatingBar> with SingleTickerProviderStat
           child: AnimatedContainer(
             duration: Duration(milliseconds: 1),
             color: calculate(angle),
+            child: Center(
             child: Stack(
               clipBehavior: Clip.none,
               children:[
-                Positioned(
-                  top: 90,
-                  bottom: 0,
-                  left: 200,
-                  child: Transform.rotate(
-                    alignment:Alignment(-0.4,0),
+                Align(
+                  alignment: Alignment.center,
+                  child:Transform.rotate(
+                    alignment:Alignment.center,
                     angle: angle,
+                    child: Transform.translate(
+                      offset: Offset(250,10),
                     child: Transform.scale(
-                      scale: 0.15,
+                      scale: 0.35,
                       child: Image.network(
                         imagepaths[3],
                         fit: BoxFit.contain,
                       ),
                     ),
-                  ),
-                ),
-                Center(
-                  child: Transform.scale(
-                    scale: 0.7,
-                    child: Image.network(
-                      (angle==minAngle||angle==maxAngle)? imagepaths[5]: imagepaths[4],
-                      fit: BoxFit.contain,
                     ),
                   ),
                 ),
+                Align(
+                  alignment: Alignment(0,0),
+                child: Transform.scale(
+                  scale: 0.7,
+                  child: Image.network(
+                      (angle==minAngle||angle==maxAngle)? imagepaths[5]: imagepaths[4],
+                      fit: BoxFit.contain,
+                  ),
+                ),
+                ),
               ],
+            ),
             ),
           ),
         );
