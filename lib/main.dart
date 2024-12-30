@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:madcamp_w1/pages/volume_random_page.dart';
+import 'package:madcamp_w1/pages/volumn_page.dart';
 import 'package:madcamp_w1/screens/home_screen.dart';
+import 'package:madcamp_w1/screens/tab_3.dart';
 
 void main() {
   runApp(const MyApp());
@@ -17,7 +20,7 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.white),
         useMaterial3: true,
       ),
-      home: HomeScreen(),
+      home: VolumeRandomPage(),
     );
   }
 }
