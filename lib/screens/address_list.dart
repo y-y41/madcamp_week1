@@ -1,6 +1,15 @@
 import 'package:flutter/material.dart';
-import 'call_page.dart';
+import 'package:madcamp_w1/screens/call_page.dart';
+import 'package:madcamp_w1/screens/image_list.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'setting_page.dart';
+
+class GlobalVariables {
+  static Color appBarColor = Colors.green;
+  static void updatecolor(Color newColor) {
+    appBarColor = newColor;
+  }
+}
 class AddressList extends StatefulWidget {
   const AddressList({Key? key}) : super(key: key);
 
@@ -9,9 +18,25 @@ class AddressList extends StatefulWidget {
 }
 
 class _AddressListState extends State<AddressList> {
+  Color newColor = Colors.green;
+  Future<Color> _loadColor() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    int savedColorValue = prefs.getInt('savedColor') ?? Colors.green.value;
+    setState(() {
+      newColor = Color(savedColorValue);
+    });
+    return Colors.green;
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    _loadColor();
+  }
+
   var index = 0;
 
-  List<Widget> pages = [CallPage(), Text('2page'), SettingPage()];
+  List<Widget> pages = [CallPage(), imagelist(), SettingPage()];
 
   @override
   Widget build(BuildContext context) {
