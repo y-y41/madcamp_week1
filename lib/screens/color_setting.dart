@@ -153,38 +153,38 @@ class _RotatingBarState extends State<RotatingBar> with SingleTickerProviderStat
             duration: Duration(milliseconds: 1),
             color: calculate(angle),
             child: Center(
-            child: Stack(
-              clipBehavior: Clip.none,
-              children:[
-                Align(
-                  alignment: Alignment.center,
-                  child:Transform.rotate(
-                    alignment:Alignment.center,
-                    angle: angle,
-                    child: Transform.translate(
-                      offset: Offset(250,10),
+              child: Stack(
+                clipBehavior: Clip.none,
+                children:[
+                  Align(
+                    alignment: Alignment.center,
+                    child:Transform.rotate(
+                      alignment:Alignment.center,
+                      angle: angle,
+                      child: Transform.translate(
+                        offset: Offset(250,10),
+                        child: Transform.scale(
+                          scale: 0.35,
+                          child: Image.network(
+                            imagepaths[3],
+                            fit: BoxFit.contain,
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                  Align(
+                    alignment: Alignment(0,0),
                     child: Transform.scale(
-                      scale: 0.35,
+                      scale: 0.7,
                       child: Image.network(
-                        imagepaths[3],
+                        (angle==minAngle||angle==maxAngle)? imagepaths[5]: imagepaths[4],
                         fit: BoxFit.contain,
                       ),
                     ),
-                    ),
                   ),
-                ),
-                Align(
-                  alignment: Alignment(0,0),
-                child: Transform.scale(
-                  scale: 0.7,
-                  child: Image.network(
-                      (angle==minAngle||angle==maxAngle)? imagepaths[5]: imagepaths[4],
-                      fit: BoxFit.contain,
-                  ),
-                ),
-                ),
-              ],
-            ),
+                ],
+              ),
             ),
           ),
         );
