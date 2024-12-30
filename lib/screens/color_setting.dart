@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'dart:math';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:madcamp_w1/screens/home_screen.dart';
+import 'package:madcamp_w1/screens/tab_3.dart';
 
 void main() => runApp(MyApp());
 
@@ -36,9 +37,6 @@ class _RotatingBarState extends State<RotatingBar> with SingleTickerProviderStat
   late Animation<double> _animation;
 
   List<String> imagepaths=[
-    'lib/screens/pngwing.com.png',
-    'lib/screens/catimage.png',
-    'lib/screens/balck cat.png',
     'lib/screens/pngegg.png',
     'lib/screens/cat1.png',
     'lib/screens/cat3.png'
@@ -166,7 +164,7 @@ class _RotatingBarState extends State<RotatingBar> with SingleTickerProviderStat
                         child: Transform.scale(
                           scale: 0.35,
                           child: Image.network(
-                            imagepaths[3],
+                            imagepaths[0],
                             fit: BoxFit.contain,
                           ),
                         ),
@@ -178,7 +176,7 @@ class _RotatingBarState extends State<RotatingBar> with SingleTickerProviderStat
                     child: Transform.scale(
                       scale: 0.7,
                       child: Image.network(
-                        (angle==minAngle||angle==maxAngle)? imagepaths[5]: imagepaths[4],
+                        (angle==minAngle||angle==maxAngle)? imagepaths[2]: imagepaths[1],
                         fit: BoxFit.contain,
                       ),
                     ),
