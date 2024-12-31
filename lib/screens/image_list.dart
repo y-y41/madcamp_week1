@@ -117,12 +117,9 @@ class _imagelist extends State<imagelist> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text("Image"),
-        centerTitle: true,
-      ),
+      backgroundColor: Colors.white,
       body: GridView.builder(
-          itemCount: imagelist.length,
+          itemCount: imagelist.length + 1,
           gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
             mainAxisSpacing: 5,
             crossAxisCount: 3,
@@ -171,7 +168,7 @@ Widget imageContainer({
     padding: const EdgeInsets.all(5),
     child: ClipRRect(
       borderRadius: BorderRadius.circular(10),
-      child: Image.network(
+      child: Image.asset(
         imageurl,
         fit: BoxFit.cover,
         height: 150,
@@ -194,6 +191,7 @@ class ImageDetailScreen extends StatelessWidget{
   @override
   Widget build(BuildContext context){
     return Scaffold(
+      backgroundColor: Colors.white,
       appBar: AppBar(
         // title: Text(
         //     imageName,
@@ -215,7 +213,7 @@ class ImageDetailScreen extends StatelessWidget{
                 alignment: Alignment(0, 500),
                 child: ClipRRect(
                   borderRadius: BorderRadius.circular(15),
-                  child: Image.network(
+                  child: Image.asset(
                     imageUrl,
                     fit:BoxFit.cover,
                     height: 400,
