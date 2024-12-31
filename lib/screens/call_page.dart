@@ -4,6 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:madcamp_w1/screens/image_list2.dart';
 import 'package:url_launcher/url_launcher.dart'; // url_launcher 패키지 임포트
+import 'package:madcamp_w1/screens/home_screen.dart';
 
 class CallPage extends StatefulWidget {
   const CallPage({Key? key}) : super(key: key);
@@ -253,7 +254,7 @@ class _CallPageState extends State<CallPage> {
         onPressed: () => _addPerson(context), // + 버튼 클릭 시 동작
         child: const Icon(Icons.add_rounded,
             size: 32, color: Colors.white), // 흰색 + 아이콘, 크기 조정
-        backgroundColor: Color(0xFF0E87C8), // 버튼 배경색을 파란색으로 설정
+        backgroundColor: GlobalVariables.appBarColor, // 버튼 배경색을 파란색으로 설정
         shape: CircleBorder(), // 버튼을 완전히 원형으로 유지
         elevation: 6, // 버튼의 그림자 깊이
       ),

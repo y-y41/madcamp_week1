@@ -3,6 +3,7 @@ import 'dart:math';
 import 'package:assets_audio_player/assets_audio_player.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_volume_controller/flutter_volume_controller.dart';
+import 'package:madcamp_w1/screens/home_screen.dart';
 
 class VolumeRandomPage extends StatefulWidget {
   const VolumeRandomPage({Key? key}) : super(key: key);
@@ -136,7 +137,7 @@ class _VolumeRandomPageState extends State<VolumeRandomPage> {
                         child: ClipRRect(
                           borderRadius: BorderRadius.circular(15),
                           child: Container(
-                            color: _isStopped[index] ? null : Color(0xFF0E87C8),
+                            color: _isStopped[index] ? null : GlobalVariables.appBarColor,
                             child: !_isStopped[index]
                                 ? Center(
                                     child: Text(

@@ -64,7 +64,7 @@ class _HomeScreenState extends State<HomeScreen> {
         title: Text(
           'KAGO',
           style: TextStyle(
-              color: Color(0xFF0E87C8),
+              color: GlobalVariables.appBarColor,
               fontSize: 24,
               fontFamily: 'Inter',
               fontWeight: FontWeight.w800),
@@ -79,7 +79,7 @@ class _HomeScreenState extends State<HomeScreen> {
             index = value;
           });
         },
-        selectedItemColor: Color(0xFF0E87C8),
+        selectedItemColor: GlobalVariables.appBarColor,
         unselectedItemColor: Colors.grey,
         showSelectedLabels: false,
         showUnselectedLabels: false,

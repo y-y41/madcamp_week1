@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:madcamp_w1/screens/address_list.dart';
+import 'package:madcamp_w1/screens/home_screen.dart';
 import 'package:madcamp_w1/screens/setting_page.dart';
 import 'dart:math';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -159,7 +159,7 @@ class _RotatingBarState extends State<RotatingBar> with SingleTickerProviderStat
             Future.delayed(_controller.duration!,() {
               Navigator.pushAndRemoveUntil(
                 context,
-                MaterialPageRoute(builder: (context) => AddressList()),
+                MaterialPageRoute(builder: (context) => HomeScreen()),
                   (Route<dynamic> route)=>false,
               );
             });
