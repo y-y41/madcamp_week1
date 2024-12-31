@@ -7,8 +7,21 @@ import 'package:madcamp_w1/screens/tab_3.dart';
 
 class GlobalVariables {
   static Color appBarColor = Colors.green;
-  static void updatecolor(Color newColor) {
+  static void updatecolor(Color newColor) async {
     appBarColor = newColor;
+    await saveColor(newColor);
+  }
+  static Color getColor(){
+    return appBarColor;
+  }
+  static Future<void> saveColor(Color color) async{
+    SharedPreferences prefs =await SharedPreferences.getInstance();
+    prefs.setInt('savedColor',color.value);
+  }
+  static Future<void> loadColor() async{
+    SharedPreferences prefs=await SharedPreferences.getInstance();
+    int savedColorValue=prefs.getInt('savedColor') ?? Colors.green.value;
+    appBarColor=Color(savedColorValue);
   }
 }
 
@@ -20,14 +33,14 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  Color newColor = Colors.green;
+  Color newColor = GlobalVariables.appBarColor;
   Future<Color> _loadColor() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     int savedColorValue = prefs.getInt('savedColor') ?? Colors.green.value;
     setState(() {
       newColor = Color(savedColorValue);
     });
-    return Colors.green;
+    return GlobalVariables.appBarColor;
   }
 
   @override
