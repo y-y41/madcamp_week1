@@ -3,6 +3,7 @@ import 'package:madcamp_w1/screens/address_list.dart';
 import 'package:madcamp_w1/screens/home_screen.dart';
 import 'package:madcamp_w1/screens/lock_settings.dart';
 import 'package:madcamp_w1/screens/lock_screen.dart';
+import 'package:madcamp_w1/screens/volume_random_page.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 void main() {
@@ -66,4 +67,3 @@ class _InitialScreenState extends State<InitialScreen> {
     );
   }
 }
-
