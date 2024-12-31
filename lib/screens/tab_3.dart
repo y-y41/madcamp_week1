@@ -1,11 +1,11 @@
 import 'dart:ui';
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:madcamp_w1/pages/font_size_page.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:madcamp_w1/screens/volume_random_page.dart';
 import 'package:madcamp_w1/screens/color_setting.dart';
 import 'lock_settings.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 class Tab3 extends StatelessWidget {
   const Tab3({Key? key}) : super(key: key);
@@ -20,21 +20,21 @@ class Tab3 extends StatelessWidget {
           customCard(context,
               title: '패턴설정',
               subtitle: '패턴암호를 설정해 보세요',
-              imagePath: 'assets/images/set_pattern.png', onTap: () {
+              imagePath: 'assets/images/set_pattern.svg', onTap: () {
             Navigator.push(context,
                 MaterialPageRoute(builder: (context) => LockSettings()));
           }),
           customCard(context,
               title: '볼륨조절',
               subtitle: '볼륨 크기를 조절해보세요',
-              imagePath: 'assets/images/set_volume.png', onTap: () {
+              imagePath: 'assets/images/set_volume.svg', onTap: () {
             Navigator.push(context,
                 MaterialPageRoute(builder: (context) => VolumeRandomPage()));
           }),
           customCard(context,
               title: '색상설정',
               subtitle: '테마 색상을 설정해보세요',
-              imagePath: 'assets/images/set_palette.png', onTap: () {
+              imagePath: 'assets/images/set_palette.svg', onTap: () {
             Navigator.push(context,
                 MaterialPageRoute(builder: (context) => RotatingBar()));
           })
@@ -82,11 +82,12 @@ class Tab3 extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.end,
               mainAxisAlignment: MainAxisAlignment.end,
               children: [
-                Image.asset(
+                SvgPicture.asset(
                   imagePath,
                   width: 110,
                   height: 110,
-                  fit: BoxFit.cover,
+                  color: Color(0xFF0E87C8),
+                  // fit: BoxFit.cover,
                 ),
               ],
             )
