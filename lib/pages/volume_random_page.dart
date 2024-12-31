@@ -1,6 +1,8 @@
 import 'dart:async';
 import 'dart:math';
+import 'package:assets_audio_player/assets_audio_player.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_volume_controller/flutter_volume_controller.dart';
 
 class VolumeRandomPage extends StatefulWidget {
   const VolumeRandomPage({Key? key}) : super(key: key);
@@ -13,8 +15,29 @@ class _VolumeRandomPageState extends State<VolumeRandomPage> {
   List<int> _values = List.generate(9, (index) => Random().nextInt(21) - 10);
   List<bool> _isStopped = List.generate(9, (index) => false);
   bool _isRunning = false;
-  double _volume = 10.0;
+  double _volume = 1.0;
   Timer? _timer;
+  final assetsAudioPlayer = AssetsAudioPlayer();
+
+  @override
+  void initState() {
+    super.initState();
+    initVolume();
+  }
+
+  Future<void> initVolume() async {
+    double? curVolume = await FlutterVolumeController.getVolume();
+    setState(() {
+      _volume = curVolume!;
+    });
+  }
+
+  Future<void> setDeviceVolume(double value) async {
+    setState(() {
+      _volume = value.clamp(0.0, 1.0);
+    });
+    await FlutterVolumeController.setVolume(_volume);
+  }
 
   void startRandom() {
     _timer?.cancel();
@@ -38,19 +61,31 @@ class _VolumeRandomPageState extends State<VolumeRandomPage> {
     _timer?.cancel();
   }
 
-  void onTile(int index) {
+  void onTile(int index) async {
     if (_isRunning && !_isStopped[index]) {
       setState(() {
         _isStopped[index] = true;
-        _volume = (_volume + _values[index]).clamp(0, 100);
+        // _volume = (_volume + _values[index]).clamp(0, 100);
       });
+      double newVolume = (_volume + _values[index] / 100).clamp(0.0, 1.0);
+      await setDeviceVolume(newVolume);
+      playEffectSound();
     }
+  }
+
+  void playEffectSound() {
+    assetsAudioPlayer.open(
+      Audio('assets/audios/meow.mp3'),
+      autoStart: true,
+      volume: _volume,
+    );
   }
 
   @override
   void dispose() {
     super.dispose();
     _timer?.cancel();
+    assetsAudioPlayer.dispose();
   }
 
   @override
@@ -94,19 +129,36 @@ class _VolumeRandomPageState extends State<VolumeRandomPage> {
                                       fontWeight: FontWeight.bold),
                                 ),
                               )
-                            : ClipRect(
-                                child: FractionallySizedBox(
-                                  widthFactor: 3.0,
-                                  heightFactor: 3.0,
-                                  alignment: Alignment(
-                                    -1.0 + (col * 2 / 2),
-                                    -1.0 + (row * 2 / 2),
+                            : Stack(
+                                alignment: Alignment.center,
+                                children: [
+                                  ClipRect(
+                                    child: FractionallySizedBox(
+                                      widthFactor: 3.0,
+                                      heightFactor: 3.0,
+                                      alignment: Alignment(
+                                        -1.0 + (col * 2 / 2),
+                                        -1.0 + (row * 2 / 2),
+                                      ),
+                                      child: ColorFiltered(
+                                        colorFilter: ColorFilter.mode(
+                                            Colors.black.withOpacity(0.5),
+                                            BlendMode.multiply),
+                                        child: Image.asset(
+                                          'assets/images/고양이.png',
+                                          fit: BoxFit.cover,
+                                        ),
+                                      ),
+                                    ),
                                   ),
-                                  child: Image.asset(
-                                    'assets/images/고양이.png',
-                                    fit: BoxFit.cover,
-                                  ),
-                                ),
+                                  Text(
+                                    _values[index].toString(),
+                                    style: TextStyle(
+                                        fontSize: 24,
+                                        fontWeight: FontWeight.bold,
+                                        color: Colors.white),
+                                  )
+                                ],
                               ),
                       ),
                     ),
@@ -135,7 +187,7 @@ class _VolumeRandomPageState extends State<VolumeRandomPage> {
                 ),
                 SizedBox(height: 15),
                 Text(
-                  'Volume: ${_volume.toInt()}%',
+                  'Volume: ${(100 * _volume).toInt()}%',
                   style: TextStyle(fontSize: 18),
                 ),
               ],
