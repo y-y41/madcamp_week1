@@ -16,11 +16,12 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Mad Camp',
-      theme: ThemeData(
-        fontFamily: 'NotoSans',
-        // colorScheme: ColorScheme.fromSeed(seedColor: Colors.white),
-        useMaterial3: true,
-      ),
+      builder: (context, child) {
+        return Container(
+          color: Colors.grey[200], // 앱 전체 배경색
+          child: child,
+        );
+      },
       home: InitialScreen(),
     );
   }
@@ -50,13 +51,15 @@ class _InitialScreenState extends State<InitialScreen> {
 
   @override
   Widget build(BuildContext context) {
-    // 패턴이 설정되지 않은 경우 바로 AddressList 화면으로 이동
+    return Scaffold(
+      body: Container(
+        color: Colors.grey[200], // 배경색 설정
+        child: _isPatternSet ? _buildLockScreen(context) : _buildHomeScreen(context),
+      ),
+    );
+  }
 
-    if (!_isPatternSet) {
-      return HomeScreen();
-    }
-
-    // 패턴이 설정되어 있으면 잠금 화면으로 이동
+  Widget _buildLockScreen(BuildContext context) {
     return LockScreen(
       onUnlock: () {
         Navigator.of(context).pushReplacement(
@@ -65,5 +68,10 @@ class _InitialScreenState extends State<InitialScreen> {
       },
     );
   }
+
+  Widget _buildHomeScreen(BuildContext context) {
+    return HomeScreen();
+  }
 }
+
 
