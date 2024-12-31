@@ -288,7 +288,7 @@ class _CallPageState extends State<CallPage> {
                       height: 135, // 이미지 높이
                       fit: BoxFit.cover, // 이미지 비율 유지
                       errorBuilder: (context, error, stackTrace) => Image.asset(
-                        'assets/placeholder.png', // 실패 시 대체 이미지
+                        'assets/고양이.png', // 실패 시 대체 이미지
                         width: 140,
                         height: 140,
                       ),
@@ -548,7 +548,7 @@ class _CallPageState extends State<CallPage> {
                   imageUrl,
                   fit: BoxFit.cover,
                   errorBuilder: (context, error, stackTrace) => Image.asset(
-                    'assets/placeholder.png',
+                    'assets/고양이.png',
                     fit: BoxFit.cover,
                   ),
                 ),
