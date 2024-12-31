@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:madcamp_w1/screens/call_page.dart';
 import 'package:madcamp_w1/screens/image_list.dart';
@@ -43,26 +44,48 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: GlobalVariables.appBarColor,
+        backgroundColor: index == 2 ? Color(0xFFF5F5F5) : Colors.white,
         title: Text(
-          'week1 project',
-          style: TextStyle(color: Colors.white),
+          'KAGO',
+          style: TextStyle(
+              color: Color(0xFF0E87C8),
+              fontSize: 24,
+              fontFamily: 'Inter',
+              fontWeight: FontWeight.w800),
         ),
-        centerTitle: true,
-        // shape: Border(bottom: BorderSide(color: Colors.grey, width: 1)),
       ),
-      body: pages[index],
+      body: Container(color: Colors.white, child: pages[index]),
       bottomNavigationBar: BottomNavigationBar(
+        backgroundColor: Colors.white,
         currentIndex: index,
         onTap: (value) {
           setState(() {
             index = value;
           });
         },
+        selectedItemColor: Color(0xFF0E87C8),
+        unselectedItemColor: Colors.grey,
+        showSelectedLabels: false,
+        showUnselectedLabels: false,
         items: [
-          BottomNavigationBarItem(icon: Icon(Icons.call), label: 'call'),
-          BottomNavigationBarItem(icon: Icon(Icons.image), label: 'image'),
-          BottomNavigationBarItem(icon: Icon(Icons.settings), label: 'setting')
+          BottomNavigationBarItem(
+              icon: Icon(
+                CupertinoIcons.paw_solid,
+                size: 30,
+              ),
+              label: ''),
+          BottomNavigationBarItem(
+              icon: Icon(
+                CupertinoIcons.photo_fill,
+                size: 30,
+              ),
+              label: ''),
+          BottomNavigationBarItem(
+              icon: Icon(
+                Icons.settings_rounded,
+                size: 30,
+              ),
+              label: '')
         ],
       ),
     );
