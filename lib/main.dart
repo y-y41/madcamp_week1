@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:madcamp_w1/screens/address_list.dart';
+import 'package:madcamp_w1/screens/home_screen.dart';
 import 'package:madcamp_w1/screens/lock_settings.dart';
 import 'package:madcamp_w1/screens/lock_screen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -52,14 +52,14 @@ class _InitialScreenState extends State<InitialScreen> {
   Widget build(BuildContext context) {
     // 패턴이 설정되지 않은 경우 바로 AddressList 화면으로 이동
     if (!_isPatternSet) {
-      return AddressList();
+      return HomeScreen();
     }
 
     // 패턴이 설정되어 있으면 잠금 화면으로 이동
     return LockScreen(
       onUnlock: () {
         Navigator.of(context).pushReplacement(
-          MaterialPageRoute(builder: (context) => AddressList()),
+          MaterialPageRoute(builder: (context) => HomeScreen()),
         );
       },
     );
