@@ -37,18 +37,24 @@ class _imagelist extends State<imagelist> {
     Imagedata(
         imagenum: 4,
         imageurl: 'lib/screens/image/고양이4.png',
-        imagename: 'Lighthouse',
-        imagedate: '2024-12-27'),
+        imagename: '포리',
+        imagedate: '2024년 2월 8일',
+        imageloc: '대전 유성구 어은동 52-10'
+    ),
     Imagedata(
         imagenum: 5,
         imageurl: 'lib/screens/image/고양이5.png',
-        imagename: 'Laptop',
-        imagedate: '2024-12-27'),
+        imagename: '벼루',
+        imagedate: '2022년 10월 19일',
+        imageloc: '대전 유성구 대학로 291 구성동 53-3'
+    ),
     Imagedata(
         imagenum: 6,
         imageurl: 'lib/screens/image/고양이6.png',
-        imagename: 'Laptop',
-        imagedate: '2024-12-27'),
+        imagename: '마루',
+        imagedate: '2024년 6월 13일',
+        imageloc: '대전 유성구 대학로 291 어은동 44'
+    ),
     Imagedata(
         imagenum: 7,
         imageurl: 'lib/screens/image/고양이7.png',
