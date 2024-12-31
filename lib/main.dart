@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:madcamp_w1/screens/home_screen.dart';
 import 'package:madcamp_w1/screens/lock_settings.dart';
 import 'package:madcamp_w1/screens/lock_screen.dart';
+import 'package:madcamp_w1/screens/volume_random_page.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 void main() async{
@@ -17,10 +18,12 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Mad Camp',
-      theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.white),
-        useMaterial3: true,
-      ),
+      builder: (context, child) {
+        return Container(
+          color: Colors.grey[200], // 앱 전체 배경색
+          child: child,
+        );
+      },
       home: InitialScreen(),
     );
   }
@@ -50,12 +53,18 @@ class _InitialScreenState extends State<InitialScreen> {
 
   @override
   Widget build(BuildContext context) {
-    // 패턴이 설정되지 않은 경우 바로 AddressList 화면으로 이동
     if (!_isPatternSet) {
       return HomeScreen();
     }
+    return Scaffold(
+      body: Container(
+        color: Colors.grey[200], // 배경색 설정
+        child: _isPatternSet ? _buildLockScreen(context) : _buildHomeScreen(context),
+      ),
+    );
+  }
 
-    // 패턴이 설정되어 있으면 잠금 화면으로 이동
+  Widget _buildLockScreen(BuildContext context) {
     return LockScreen(
       onUnlock: () {
         Navigator.of(context).pushReplacement(
@@ -64,5 +73,8 @@ class _InitialScreenState extends State<InitialScreen> {
       },
     );
   }
-}
 
+  Widget _buildHomeScreen(BuildContext context) {
+    return HomeScreen();
+  }
+}

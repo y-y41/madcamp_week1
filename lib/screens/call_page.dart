@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:madcamp_w1/screens/image_list2.dart';
+import 'package:url_launcher/url_launcher.dart'; // url_launcher 패키지 임포트
 
 class CallPage extends StatefulWidget {
   const CallPage({Key? key}) : super(key: key);
@@ -209,31 +210,40 @@ class _CallPageState extends State<CallPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Cat List Page'),
-        bottom: PreferredSize(
-          preferredSize: const Size.fromHeight(48.0),
-          child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 16.0),
-            child: TextField(
-              onChanged: _updateSearchQuery,
-              decoration: const InputDecoration(
-                hintText: "검색",
-                border: OutlineInputBorder(),
-                prefixIcon: Icon(Icons.search),
+      backgroundColor: Colors.white,
+      extendBodyBehindAppBar: true, // AppBar를 상태바 뒤로 확장
+      body: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          // SafeArea를 추가하여 상태바 충돌 방지
+          SafeArea(
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
+              child: TextField(
+                onChanged: _updateSearchQuery,
+                decoration: const InputDecoration(
+                  hintText: "검색",
+                  border: OutlineInputBorder(),
+                  prefixIcon: Icon(Icons.search),
+                ),
               ),
             ),
           ),
-        ),
+          Expanded(
+            child: _buildList(filteredPeople, context),
+          ),
+        ],
       ),
-      body: _buildList(filteredPeople, context),
       floatingActionButton: FloatingActionButton(
-        onPressed: () => _addPerson(context),
-        child: const Icon(Icons.add),
-        backgroundColor: Colors.greenAccent,
+        onPressed: () => _addPerson(context), // + 버튼 클릭 시 동작
+        child: const Icon(Icons.add, size: 32, color: Colors.white), // 흰색 + 아이콘, 크기 조정
+        backgroundColor: Colors.blue, // 버튼 배경색을 파란색으로 설정
+        shape: CircleBorder(), // 버튼을 완전히 원형으로 유지
+        elevation: 6, // 버튼의 그림자 깊이
       ),
     );
   }
+
 
   Widget _buildList(List<Person> people, BuildContext context) => ListView.builder(
     itemCount: people.length,
@@ -252,113 +262,153 @@ class _CallPageState extends State<CallPage> {
       builder: (BuildContext context) {
         return AlertDialog(
           shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(12),
+            borderRadius: BorderRadius.circular(12), // 다이얼로그 모서리를 둥글게
           ),
+          backgroundColor: Colors.white,
           content: SizedBox(
-            width: MediaQuery.of(context).size.width * 0.8, // 화면의 80% 너비
-            height: MediaQuery.of(context).size.height * 0.6, // 화면의 60% 높이
+            width: MediaQuery.of(context).size.width * 0.55, // 다이얼로그 너비
             child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisSize: MainAxisSize.min, // 다이얼로그 높이를 내용에 맞게 조절
+              crossAxisAlignment: CrossAxisAlignment.start, // 모든 텍스트 왼쪽 정렬
               children: [
-                Row(
-                  children: [
-                    ClipRRect(
-                      borderRadius: BorderRadius.circular(12),
-                      child: Image.network(
-                        person.imageUrl,
-                        fit: BoxFit.cover,
-                        width: MediaQuery.of(context).size.width * 0.3,
-                        height: MediaQuery.of(context).size.height * 0.2,
-                        errorBuilder: (context, error, stackTrace) => Image.asset(
-                          'assets/placeholder.png',
-                          fit: BoxFit.cover,
-                          width: MediaQuery.of(context).size.width * 0.2,
-                          height: MediaQuery.of(context).size.height * 0.1,
-                        ),
+                // 닫기 버튼 오른쪽 상단
+                Align(
+                  alignment: Alignment.topRight,
+                  child: IconButton(
+                    icon: const Icon(Icons.close, color: Colors.grey),
+                    onPressed: () => Navigator.of(context).pop(), // 닫기 버튼
+                  ),
+                ),
+                // 고양이 이미지
+                Center(
+                  child: ClipOval(
+                    child: Image.asset(
+                      person.imageUrl,
+                      width: 135, // 이미지 너비
+                      height: 135, // 이미지 높이
+                      fit: BoxFit.cover, // 이미지 비율 유지
+                      errorBuilder: (context, error, stackTrace) => Image.asset(
+                        'assets/고양이.png', // 실패 시 대체 이미지
+                        width: 140,
+                        height: 140,
                       ),
                     ),
-                    const SizedBox(width: 16),
-                    Expanded(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            person.name,
-                            style: const TextStyle(
-                              fontSize: 20,
-                              fontWeight: FontWeight.bold,
-                              color: Colors.black,
-                            ),
-                          ),
-                          const SizedBox(height: 8),
-                          Text(
-                            person.description,
-                            style: const TextStyle(fontSize: 16, color: Colors.black87),
-                          ),
-                          const SizedBox(height: 8),
-                          Text(
-                            person.oneComment,
-                            style: const TextStyle(fontSize: 16, fontStyle: FontStyle.italic, color: Colors.black54),
-                          ),
-                        ],
-                      ),
+                  ),
+                ),
+                const SizedBox(height: 16), // 이미지와 텍스트 간격
+                // 고양이 이름
+                Text(
+                  person.name,
+                  style: const TextStyle(
+                    fontSize: 20,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.black,
+                  ),
+                ),
+                const SizedBox(height: 8), // 이름과 설명 간격
+                // 담당자 및 전화번호
+                GestureDetector(
+                  onTap: () async {
+                    // 전화번호 추출 (숫자만 남기기)
+                    final phone = person.description.replaceAll(RegExp(r'[^\d+]'), '');
+                    final Uri telUri = Uri(scheme: "tel", path: phone); // tel 스키마 생성
+                    if (await canLaunchUrl(telUri)) { // 전화 앱 실행 가능 여부 확인
+                      await launchUrl(telUri); // 전화 앱 실행
+                    } else {
+                      throw 'Could not launch $telUri'; // 에러 처리
+                    }
+                  },
+                  child: Text(
+                    person.description, // description이 전화번호를 포함
+                    style: const TextStyle(
+                      fontSize: 14,
+                      color: Colors.green, // 클릭 가능성을 시각적으로 표현
+
+                    ),
+                  ),
+                ),
+                const SizedBox(height: 8), // 설명과 코멘트 간격
+                Text(
+                  person.oneComment,
+                  style: const TextStyle(
+                    fontSize: 14,
+                    fontStyle: FontStyle.italic,
+                    color: Colors.grey,
+                  ),
+                ),
+                const SizedBox(height: 16), // 추가 정보와 간격
+                // 추가 정보 섹션
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start, // 텍스트 왼쪽 정렬
+                  children: [
+                    Text(
+                      "3살 / ${person.gender}",
+                      style: const TextStyle(fontSize: 14, color: Colors.black),
+                    ),
+                    const SizedBox(height: 8), // 항목 간 간격
+                    Text(
+                      "서식장소: ${person.habitat}",
+                      style: const TextStyle(fontSize: 14, color: Colors.black),
+                    ),
+                    const SizedBox(height: 8), // 항목 간 간격
+                    Text(
+                      "특징: ${person.traits}",
+                      style: const TextStyle(fontSize: 14, color: Colors.black),
                     ),
                   ],
                 ),
-                const SizedBox(height: 16),
-                Text(
-                  "나이: ${person.age}",
-                  style: const TextStyle(fontSize: 16, color: Colors.black),
+                const SizedBox(height: 16), // 추가 정보와 인스타그램 링크 간격
+                // 인스타그램 링크
+                GestureDetector(
+                  onTap: () async {
+                    const url = "https://instagram.com/kaist_cat_network"; // URL 정의
+                    final Uri uri = Uri.parse(url); // URL을 Uri 객체로 변환
+                    if (await canLaunchUrl(uri)) { // Uri를 사용하여 URL 열기 가능 여부 확인
+                      await launchUrl(uri); // URL 열기
+                    } else {
+                      throw 'Could not launch $url'; // URL 열기 실패 시 에러 처리
+                    }
+                  },
+                  child: Text(
+                    "카이스트 고양이 쉼터 인스타: @kaist_cat_network",
+                    style: const TextStyle(
+                      fontSize: 12,
+                      color: Colors.blueAccent,
+                    ),
+                  ),
                 ),
-                Text(
-                  "성별: ${person.gender}",
-                  style: const TextStyle(fontSize: 16, color: Colors.black),
-                ),
-                Text(
-                  "서식 장소: ${person.habitat}",
-                  style: const TextStyle(fontSize: 16, color: Colors.black),
-                ),
-                Text(
-                  "특징: ${person.traits}",
-                  style: const TextStyle(fontSize: 16, color: Colors.black),
-                ),
-                const SizedBox(height: 8),
-                Text(
-                  "카이스트 고양이 쉼터 인스타: @kaist_cat_network",
-                  style: const TextStyle(fontSize: 16, color: Colors.blueAccent),
+                const SizedBox(height: 16), // 하단 버튼과의 간격
+                // 하단의 아이콘 버튼들
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.end, // 버튼을 오른쪽으로 정렬
+                  children: [
+                    IconButton(
+                      icon: const Icon(Icons.edit, color: Colors.blue), // 수정 아이콘
+                      tooltip: '수정',
+                      onPressed: () => _editPerson(context, person), // 수정 다이얼로그 호출
+                    ),
+                    IconButton(
+                      icon: const Icon(Icons.delete, color: Colors.red), // 삭제 아이콘
+                      tooltip: '삭제',
+                      onPressed: () {
+                        setState(() {
+                          people.remove(person); // 항목 삭제
+                        });
+                        Navigator.of(context).pop(); // 다이얼로그 닫기
+                      },
+                    ),
+                  ],
                 ),
               ],
             ),
           ),
-          actions: [
-            TextButton(
-              onPressed: () => Navigator.of(context).pop(),
-              child: const Text('닫기'),
-            ),
-            TextButton(
-              onPressed: () => _editPerson(context, person),
-              child: const Text('수정'),
-            ),
-            TextButton(
-              onPressed: () {
-                // 리스트에서 제거
-                setState(() {
-                  people.remove(person);
-                });
-
-                // 모든 팝업 닫기
-                Navigator.of(context).popUntil((route) => route.isFirst);
-              },
-              child: const Text(
-                '삭제',
-                style: TextStyle(color: Colors.red),
-              ),
-            ),
-          ],
         );
       },
     );
   }
+
+
+
 
   void _editPerson(BuildContext context, Person person) {
     TextEditingController nameController = TextEditingController(text: person.name);
@@ -489,16 +539,16 @@ class _CallPageState extends State<CallPage> {
           children: [
             CircleAvatar(
               radius: 35,
-              backgroundImage: NetworkImage(imageUrl),
+              backgroundImage: AssetImage(imageUrl),
               onBackgroundImageError: (exception, stackTrace) {
                 print('Failed to load image: $exception');
               },
               child: ClipOval(
-                child: Image.network(
+                child: Image.asset(
                   imageUrl,
                   fit: BoxFit.cover,
                   errorBuilder: (context, error, stackTrace) => Image.asset(
-                    'assets/placeholder.png',
+                    'assets/고양이.png',
                     fit: BoxFit.cover,
                   ),
                 ),

@@ -145,8 +145,10 @@ class _LockSettingsState extends State<LockSettings> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
       appBar: AppBar(
         title: const Text('패턴 설정'),
+        backgroundColor: Colors.white,
       ),
       body: Column(
         children: [
