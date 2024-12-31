@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:madcamp_w1/screens/call_page.dart';
 import 'package:madcamp_w1/screens/image_list.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'setting_page.dart';
+import 'package:madcamp_w1/screens/tab_3.dart';
 
 class GlobalVariables {
   static Color appBarColor = Colors.green;
@@ -36,7 +36,7 @@ class _AddressListState extends State<AddressList> {
 
   var index = 0;
 
-  List<Widget> pages = [CallPage(), imagelist(), SettingPage()];
+  List<Widget> pages = [CallPage(), imagelist(), Tab3()];
 
   @override
   Widget build(BuildContext context) {

@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:madcamp_w1/pages/font_size_page.dart';
 import 'package:madcamp_w1/screens/volume_random_page.dart';
 import 'package:madcamp_w1/screens/color_setting.dart';
+import 'package:madcamp_w1/screens/color_setting.dart';
+import 'lock_settings.dart';
 
 class Tab3 extends StatelessWidget {
   const Tab3({Key? key}) : super(key: key);
@@ -29,11 +30,11 @@ class Tab3 extends StatelessWidget {
         ),
         Divider(),
         ListTile(
-          title: Text('Font size'),
+          title: Text('Screen lock'),
           trailing: Icon(Icons.arrow_forward_ios),
           onTap: () {
             Navigator.push(context,
-                MaterialPageRoute(builder: (context) => FontSizePage()));
+                MaterialPageRoute(builder: (context) => LockSettings()));
           },
         )
       ],
