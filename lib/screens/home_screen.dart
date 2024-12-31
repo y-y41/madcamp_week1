@@ -19,14 +19,14 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  Color newColor = Colors.green;
+  Color newColor = GlobalVariables.appBarColor;
   Future<Color> _loadColor() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     int savedColorValue = prefs.getInt('savedColor') ?? Colors.green.value;
     setState(() {
       newColor = Color(savedColorValue);
     });
-    return Colors.green;
+    return GlobalVariables.appBarColor;
   }
 
   @override

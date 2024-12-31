@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:madcamp_w1/screens/Image.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:madcamp_w1/screens/home_screen.dart';
+import 'package:madcamp_w1/screens/address_list.dart';
+import 'package:madcamp_w1/screens/color_setting.dart';
 
 class imagelist extends StatefulWidget {
   const imagelist({super.key});
@@ -15,18 +16,24 @@ class _imagelist extends State<imagelist> {
     Imagedata(
         imagenum: 1,
         imageurl: 'lib/screens/image/고양이1.png',
-        imagename: 'Dog',
-        imagedate: '2024-12-27'),
+        imagename: '나드리',
+        imagedate: '2024년 12월 27일',
+        imageloc: '대전 유성구 대학로 291 구성동 23',
+    ),
     Imagedata(
         imagenum: 2,
         imageurl: 'lib/screens/image/고양이2.png',
-        imagename: 'Laptop',
-        imagedate: '2024-12-27'),
+        imagename: '키키',
+        imagedate: '2024년 8월 27일',
+        imageloc: '대전 유성구 대학로 291 양분순빌딩 E16-1 102호',
+    ),
     Imagedata(
         imagenum: 3,
         imageurl: 'lib/screens/image/고양이3.png',
-        imagename: 'Mountain',
-        imagedate: '2024-12-27'),
+        imagename: '아롱',
+        imagedate: '2023년 10월 17일',
+        imageloc: '대전 유성구 대학로 291 구성동 400'
+    ),
     Imagedata(
         imagenum: 4,
         imageurl: 'lib/screens/image/고양이4.png',
@@ -140,6 +147,7 @@ class _imagelist extends State<imagelist> {
                       imageUrl: imagelist[index].imageurl ??"",
                       imageName: imagelist[index].imagename ?? "",
                       imageDate: imagelist[index].imagedate ?? "",
+                      imageLoc: imagelist[index].imageloc ?? "",
                     ),
                   ),
                 );
@@ -184,11 +192,13 @@ class ImageDetailScreen extends StatelessWidget{
   final String imageUrl;
   final String imageName;
   final String imageDate;
+  final String imageLoc;
   const ImageDetailScreen({
     super.key,
     required this.imageUrl,
     required this.imageName,
     required this.imageDate,
+    required this.imageLoc,
   });
 
   @override
@@ -223,13 +233,42 @@ class ImageDetailScreen extends StatelessWidget{
                   ),
                 ),
               ),
-              Padding(
-                padding: const EdgeInsets.only(left: 200),
-                child: Text(
-                  'Date: $imageDate',
-                  style: const TextStyle(
-                    fontSize: 15,
-                    fontWeight: FontWeight.w300,
+              Align(
+                alignment: Alignment.centerLeft,
+                child: Padding(
+                  padding: EdgeInsets.only(left: 20),
+                  child: Text(
+                    'Name: $imageName',
+                    style: const TextStyle(
+                      fontSize: 15,
+                      fontWeight: FontWeight.w300,
+                    ),
+                  ),
+                ),
+              ),
+              Align(
+                alignment: Alignment.centerLeft,
+                child: Padding(
+                  padding: EdgeInsets.only(left: 20),
+                  child: Text(
+                    'Date: $imageDate',
+                    style: const TextStyle(
+                      fontSize: 15,
+                      fontWeight: FontWeight.w300,
+                    ),
+                  ),
+                ),
+              ),
+              Align(
+                alignment: Alignment.centerLeft,
+                child: Padding(
+                  padding: EdgeInsets.only(left: 20),
+                  child: Text(
+                    'Location: $imageLoc',
+                      style: const TextStyle(
+                        fontSize: 15,
+                        fontWeight: FontWeight.w300,
+                      ),
                   ),
                 ),
               ),
@@ -237,7 +276,7 @@ class ImageDetailScreen extends StatelessWidget{
           ),
           Positioned(
             bottom: 20,
-            left: 0,
+            left: MediaQuery.of(context).size.width*3/5,
             child: ClipRRect(
               borderRadius: BorderRadius.circular(15),
               child: Image.asset(

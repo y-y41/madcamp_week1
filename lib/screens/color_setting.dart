@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:madcamp_w1/screens/address_list.dart';
+import 'package:madcamp_w1/screens/setting_page.dart';
 import 'dart:math';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:madcamp_w1/screens/home_screen.dart';
 import 'package:madcamp_w1/screens/tab_3.dart';
 
 void main() => runApp(MyApp());
-
 
 class MyApp extends StatelessWidget {
   @override
@@ -23,6 +23,7 @@ class RotatingBar extends StatefulWidget {
   _RotatingBarState createState() => _RotatingBarState();
 }
 
+
 class _RotatingBarState extends State<RotatingBar> with SingleTickerProviderStateMixin {
   Offset center = Offset(0, 0); // Center of the bar
   Offset initialTouchPoint=Offset(0,0);
@@ -30,6 +31,7 @@ class _RotatingBarState extends State<RotatingBar> with SingleTickerProviderStat
   double initialAngle=0.0;
   double minAngle=-pi/3.5;
   double maxAngle=pi/8.5;
+  double a=0.6;
 
   bool isLoading=true;
 
@@ -37,14 +39,16 @@ class _RotatingBarState extends State<RotatingBar> with SingleTickerProviderStat
   late Animation<double> _animation;
 
   List<String> imagepaths=[
-    'lib/screens/pngegg.png',
-    'lib/screens/cat1.png',
-    'lib/screens/cat3.png'
+    'lib/screens/image/pngegg.png',
+    'lib/screens/image/cat1.png',
+    'lib/screens/image/cat3.png',
+    'lib/screens/image/angrycat2.png'
   ];
 
   @override
   void initState(){
     super.initState();
+    _loadColor();
     _controller=AnimationController(
       vsync: this,
       duration: Duration(milliseconds:400),
@@ -71,21 +75,26 @@ class _RotatingBarState extends State<RotatingBar> with SingleTickerProviderStat
         }
       });
     });
+    imagepaths[1]=imagepaths[3];
     angle=0;
+    a=2;
   }
 
   Color calculate(double angle) {
     double normalizedAngle=(angle-minAngle)/(maxAngle-minAngle);
     Color newColor=HSVColor.fromAHSV(1.0,normalizedAngle*360, 1.0, 1.0).toColor();
     GlobalVariables.updatecolor(newColor);
+    _saveAngle(newColor);
     return GlobalVariables.appBarColor;
   }
 
   Future<void> _loadAngle() async{
     SharedPreferences prefs=await SharedPreferences.getInstance();
     double savedAngle=prefs.getDouble('rotationAngle')?? 0.0;
+    int savedColorValue=prefs.getInt('savedColor') ?? Colors.green.value;
     setState(() {
-      angle=prefs.getDouble('rotationAngle')?? 0.0;
+      angle=savedAngle;
+      GlobalVariables.updatecolor(Color(savedColorValue));
       isLoading=false;
     });
   }
@@ -94,7 +103,15 @@ class _RotatingBarState extends State<RotatingBar> with SingleTickerProviderStat
     SharedPreferences prefs=await SharedPreferences.getInstance();
     prefs.setDouble('rotationAngle',angle);
     prefs.setInt('savedColor',color.value);
+    GlobalVariables.updatecolor(color);
   }
+
+  Future<void> _loadColor() async{
+    SharedPreferences prefs=await SharedPreferences.getInstance();
+    int savedColorValue=prefs.getInt('savedColor') ?? Colors.green.value;
+    GlobalVariables.appBarColor=Color(savedColorValue);
+  }
+
 
   @override
   Widget build(BuildContext context) {
@@ -142,11 +159,10 @@ class _RotatingBarState extends State<RotatingBar> with SingleTickerProviderStat
             Future.delayed(_controller.duration!,() {
               Navigator.pushAndRemoveUntil(
                 context,
-                MaterialPageRoute(builder: (context) => HomeScreen()),
+                MaterialPageRoute(builder: (context) => AddressList()),
                   (Route<dynamic> route)=>false,
               );
             });
-            // startBounceAnimation(angle);
           },
           child: AnimatedContainer(
             duration: Duration(milliseconds: 1),
@@ -161,7 +177,7 @@ class _RotatingBarState extends State<RotatingBar> with SingleTickerProviderStat
                       alignment:Alignment.center,
                       angle: angle,
                       child: Transform.translate(
-                        offset: Offset(250,10),
+                        offset: Offset(150,10),
                         child: Transform.scale(
                           scale: 0.35,
                           child: Image.network(
@@ -175,7 +191,7 @@ class _RotatingBarState extends State<RotatingBar> with SingleTickerProviderStat
                   Align(
                     alignment: Alignment(0,0),
                     child: Transform.scale(
-                      scale: 0.7,
+                      scale: a,
                       child: Image.network(
                         (angle==minAngle||angle==maxAngle)? imagepaths[2]: imagepaths[1],
                         fit: BoxFit.contain,

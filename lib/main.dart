@@ -4,7 +4,9 @@ import 'package:madcamp_w1/screens/lock_settings.dart';
 import 'package:madcamp_w1/screens/lock_screen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-void main() {
+void main() async{
+  WidgetsFlutterBinding.ensureInitialized();
+  await GlobalVariables.loadColor();
   runApp(const MyApp());
 }
 
