@@ -3,7 +3,7 @@ import 'package:madcamp_w1/screens/call_page.dart';
 import 'package:madcamp_w1/screens/image_list.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'setting_page.dart';
-import 'package:madcamp_w1/screens/color_setting.dart';
+import 'package:madcamp_w1/pages/color_setting.dart';
 import 'package:madcamp_w1/screens/tab_3.dart';
 
 class GlobalVariables {
@@ -12,17 +12,20 @@ class GlobalVariables {
     appBarColor = newColor;
     await saveColor(newColor);
   }
-  static Color getColor(){
+
+  static Color getColor() {
     return appBarColor;
   }
-  static Future<void> saveColor(Color color) async{
-    SharedPreferences prefs =await SharedPreferences.getInstance();
-    prefs.setInt('savedColor',color.value);
+
+  static Future<void> saveColor(Color color) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    prefs.setInt('savedColor', color.value);
   }
-  static Future<void> loadColor() async{
-    SharedPreferences prefs=await SharedPreferences.getInstance();
-    int savedColorValue=prefs.getInt('savedColor') ?? Colors.green.value;
-    appBarColor=Color(savedColorValue);
+
+  static Future<void> loadColor() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    int savedColorValue = prefs.getInt('savedColor') ?? Colors.green.value;
+    appBarColor = Color(savedColorValue);
   }
 }
 

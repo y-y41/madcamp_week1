@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:madcamp_w1/screens/home_screen.dart';
-import 'package:madcamp_w1/screens/lock_settings.dart';
+import 'package:madcamp_w1/pages/lock_settings.dart';
 import 'package:madcamp_w1/screens/lock_screen.dart';
-import 'package:madcamp_w1/screens/volume_random_page.dart';
+import 'package:madcamp_w1/pages/volume_random_page.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-void main() async{
+void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await GlobalVariables.loadColor();
   runApp(const MyApp());
@@ -59,7 +59,9 @@ class _InitialScreenState extends State<InitialScreen> {
     return Scaffold(
       body: Container(
         color: Colors.grey[200], // 배경색 설정
-        child: _isPatternSet ? _buildLockScreen(context) : _buildHomeScreen(context),
+        child: _isPatternSet
+            ? _buildLockScreen(context)
+            : _buildHomeScreen(context),
       ),
     );
   }

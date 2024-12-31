@@ -11,17 +11,20 @@ class GlobalVariables {
     appBarColor = newColor;
     await saveColor(newColor);
   }
-  static Color getColor(){
+
+  static Color getColor() {
     return appBarColor;
   }
-  static Future<void> saveColor(Color color) async{
-    SharedPreferences prefs =await SharedPreferences.getInstance();
-    prefs.setInt('savedColor',color.value);
+
+  static Future<void> saveColor(Color color) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    prefs.setInt('savedColor', color.value);
   }
-  static Future<void> loadColor() async{
-    SharedPreferences prefs=await SharedPreferences.getInstance();
-    int savedColorValue=prefs.getInt('savedColor') ?? Colors.green.value;
-    appBarColor=Color(savedColorValue);
+
+  static Future<void> loadColor() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    int savedColorValue = prefs.getInt('savedColor') ?? Colors.green.value;
+    appBarColor = Color(savedColorValue);
   }
 }
 
@@ -84,19 +87,19 @@ class _HomeScreenState extends State<HomeScreen> {
           BottomNavigationBarItem(
               icon: Icon(
                 CupertinoIcons.paw_solid,
-                size: 30,
+                // size: 30,
               ),
               label: ''),
           BottomNavigationBarItem(
               icon: Icon(
                 CupertinoIcons.photo_fill,
-                size: 30,
+                // size: 30,
               ),
               label: ''),
           BottomNavigationBarItem(
               icon: Icon(
                 Icons.settings_rounded,
-                size: 30,
+                // size: 30,
               ),
               label: '')
         ],

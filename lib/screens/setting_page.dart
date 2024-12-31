@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:madcamp_w1/screens/color_setting.dart';
-import 'lock_settings.dart';
+import 'package:madcamp_w1/pages/color_setting.dart';
+import '../pages/lock_settings.dart';
 
 class SettingPage extends StatelessWidget {
   const SettingPage({Key? key}) : super(key: key);
@@ -43,7 +43,7 @@ class SettingPage extends StatelessWidget {
             onTap: () {
               // Future: Add Privacy settings navigation
               Navigator.of(context).push(
-                MaterialPageRoute(builder: (context)=>RotatingBar()),
+                MaterialPageRoute(builder: (context) => RotatingBar()),
               );
             },
           ),
@@ -53,11 +53,11 @@ class SettingPage extends StatelessWidget {
   }
 
   Widget _buildSettingOption(
-      BuildContext context, {
-        required String title,
-        required IconData icon,
-        required VoidCallback onTap,
-      }) {
+    BuildContext context, {
+    required String title,
+    required IconData icon,
+    required VoidCallback onTap,
+  }) {
     return ListTile(
       leading: Icon(icon, color: Colors.green),
       title: Text(title),

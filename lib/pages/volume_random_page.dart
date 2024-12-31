@@ -163,7 +163,7 @@ class _VolumeRandomPageState extends State<VolumeRandomPage> {
                                                 Colors.black.withOpacity(0.5),
                                                 BlendMode.multiply),
                                             child: Image.asset(
-                                              'assets/images/고양이.png',
+                                              'assets/images/카고.png',
                                               fit: BoxFit.cover,
                                             ),
                                           ),

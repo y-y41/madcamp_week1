@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:madcamp_w1/screens/Image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:madcamp_w1/screens/home_screen.dart';
-import 'package:madcamp_w1/screens/color_setting.dart';
+import 'package:madcamp_w1/pages/color_setting.dart';
 
 class imagelist extends StatefulWidget {
   const imagelist({super.key});
@@ -14,47 +14,43 @@ class imagelist extends StatefulWidget {
 class _imagelist extends State<imagelist> {
   List<Imagedata> imagelist = [
     Imagedata(
-        imagenum: 1,
-        imageurl: 'lib/screens/image/고양이1.png',
-        imagename: '나드리',
-        imagedate: '2024년 12월 27일',
-        imageloc: '대전 유성구 대학로 291 구성동 23',
+      imagenum: 1,
+      imageurl: 'lib/screens/image/고양이1.png',
+      imagename: '나드리',
+      imagedate: '2024년 12월 27일',
+      imageloc: '대전 유성구 대학로 291 구성동 23',
     ),
     Imagedata(
-        imagenum: 2,
-        imageurl: 'lib/screens/image/고양이2.png',
-        imagename: '키키',
-        imagedate: '2024년 8월 27일',
-        imageloc: '대전 유성구 대학로 291 양분순빌딩 E16-1 102호',
+      imagenum: 2,
+      imageurl: 'lib/screens/image/고양이2.png',
+      imagename: '키키',
+      imagedate: '2024년 8월 27일',
+      imageloc: '대전 유성구 대학로 291 양분순빌딩 E16-1 102호',
     ),
     Imagedata(
         imagenum: 3,
         imageurl: 'lib/screens/image/고양이3.png',
         imagename: '아롱',
         imagedate: '2023년 10월 17일',
-        imageloc: '대전 유성구 대학로 291 구성동 400'
-    ),
+        imageloc: '대전 유성구 대학로 291 구성동 400'),
     Imagedata(
         imagenum: 4,
         imageurl: 'lib/screens/image/고양이4.png',
         imagename: '포리',
         imagedate: '2024년 2월 8일',
-        imageloc: '대전 유성구 어은동 52-10'
-    ),
+        imageloc: '대전 유성구 어은동 52-10'),
     Imagedata(
         imagenum: 5,
         imageurl: 'lib/screens/image/고양이5.png',
         imagename: '벼루',
         imagedate: '2022년 10월 19일',
-        imageloc: '대전 유성구 대학로 291 구성동 53-3'
-    ),
+        imageloc: '대전 유성구 대학로 291 구성동 53-3'),
     Imagedata(
         imagenum: 6,
         imageurl: 'lib/screens/image/고양이6.png',
         imagename: '마루',
         imagedate: '2024년 6월 13일',
-        imageloc: '대전 유성구 대학로 291 어은동 44'
-    ),
+        imageloc: '대전 유성구 대학로 291 어은동 44'),
     Imagedata(
         imagenum: 7,
         imageurl: 'lib/screens/image/고양이7.png',
@@ -142,12 +138,12 @@ class _imagelist extends State<imagelist> {
           padding: const EdgeInsets.all(2),
           itemBuilder: (context, index) {
             return GestureDetector(
-              onTap:() {
+              onTap: () {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context)=>ImageDetailScreen(
-                      imageUrl: imagelist[index].imageurl ??"",
+                    builder: (context) => ImageDetailScreen(
+                      imageUrl: imagelist[index].imageurl ?? "",
                       imageName: imagelist[index].imagename ?? "",
                       imageDate: imagelist[index].imagedate ?? "",
                       imageLoc: imagelist[index].imageloc ?? "",
@@ -191,7 +187,8 @@ Widget imageContainer({
     ),
   );
 }
-class ImageDetailScreen extends StatelessWidget{
+
+class ImageDetailScreen extends StatelessWidget {
   final String imageUrl;
   final String imageName;
   final String imageDate;
@@ -205,21 +202,20 @@ class ImageDetailScreen extends StatelessWidget{
   });
 
   @override
-  Widget build(BuildContext context){
+  Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
-      appBar: AppBar(
-        // title: Text(
-        //     imageName,
-        //   style: const TextStyle(
-        //     color: Colors.white,
-        //   ),
-        // ),
-        centerTitle: true,
-        backgroundColor: GlobalVariables.appBarColor,
-      ),
-      body: Stack(
-        children: [
+        backgroundColor: Colors.white,
+        appBar: AppBar(
+          // title: Text(
+          //     imageName,
+          //   style: const TextStyle(
+          //     color: Colors.white,
+          //   ),
+          // ),
+          centerTitle: true,
+          backgroundColor: GlobalVariables.appBarColor,
+        ),
+        body: Stack(children: [
           Column(
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,
@@ -231,9 +227,9 @@ class ImageDetailScreen extends StatelessWidget{
                   borderRadius: BorderRadius.circular(15),
                   child: Image.asset(
                     imageUrl,
-                    fit:BoxFit.cover,
+                    fit: BoxFit.cover,
                     height: 400,
-                    width:double.infinity,
+                    width: double.infinity,
                   ),
                 ),
               ),
@@ -269,30 +265,27 @@ class ImageDetailScreen extends StatelessWidget{
                   padding: EdgeInsets.only(left: 20),
                   child: Text(
                     'Location: $imageLoc',
-                      style: const TextStyle(
-                        fontSize: 15,
-                        fontWeight: FontWeight.w300,
-                      ),
+                    style: const TextStyle(
+                      fontSize: 15,
+                      fontWeight: FontWeight.w300,
+                    ),
                   ),
                 ),
               ),
             ],
           ),
           Positioned(
-            bottom: 20,
-            left: MediaQuery.of(context).size.width*3/5,
-            child: ClipRRect(
-              borderRadius: BorderRadius.circular(15),
-              child: Image.asset(
-                'lib/screens/image/meme_cat.gif',
-                width:200,
-                height: 200,
-                fit: BoxFit.contain,
-              ),
-            )
-          )
-        ]
-      )
-    );
+              bottom: 20,
+              left: MediaQuery.of(context).size.width * 3 / 5,
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(15),
+                child: Image.asset(
+                  'lib/screens/image/meme_cat.gif',
+                  width: 200,
+                  height: 200,
+                  fit: BoxFit.contain,
+                ),
+              ))
+        ]));
   }
 }

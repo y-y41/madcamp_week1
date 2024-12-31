@@ -2,9 +2,9 @@ import 'dart:ui';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:madcamp_w1/screens/volume_random_page.dart';
-import 'package:madcamp_w1/screens/color_setting.dart';
-import 'lock_settings.dart';
+import 'package:madcamp_w1/pages/volume_random_page.dart';
+import 'package:madcamp_w1/pages/color_setting.dart';
+import '../pages/lock_settings.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 class Tab3 extends StatelessWidget {
