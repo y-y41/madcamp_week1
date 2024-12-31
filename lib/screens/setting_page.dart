@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:madcamp_w1/screens/color_setting.dart';
 import 'lock_settings.dart';
 
 class SettingPage extends StatelessWidget {
@@ -41,8 +42,8 @@ class SettingPage extends StatelessWidget {
             icon: Icons.privacy_tip,
             onTap: () {
               // Future: Add Privacy settings navigation
-              ScaffoldMessenger.of(context).showSnackBar(
-                const SnackBar(content: Text('Privacy Settings Coming Soon!')),
+              Navigator.of(context).push(
+                MaterialPageRoute(builder: (context)=>RotatingBar()),
               );
             },
           ),

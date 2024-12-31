@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:madcamp_w1/screens/Image.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:madcamp_w1/screens/home_screen.dart';
 
 class imagelist extends StatefulWidget {
   const imagelist({super.key});
@@ -116,10 +117,10 @@ class _imagelist extends State<imagelist> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      // appBar: AppBar(
-      //   title: const Text("Image"),
-      //   centerTitle: true,
-      // ),
+      appBar: AppBar(
+        title: const Text("Image"),
+        centerTitle: true,
+      ),
       body: GridView.builder(
           itemCount: imagelist.length,
           gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
@@ -130,10 +131,22 @@ class _imagelist extends State<imagelist> {
           ),
           padding: const EdgeInsets.all(2),
           itemBuilder: (context, index) {
-            return imageContainer(
-              // imagename: imagelist[index].imagename ??"",
-              imageurl: imagelist[index].imageurl ?? "",
-              // imagedate: imagelist[index].imagedate ?? "",
+            return GestureDetector(
+              onTap:() {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context)=>ImageDetailScreen(
+                      imageUrl: imagelist[index].imageurl ??"",
+                      imageName: imagelist[index].imagename ?? "",
+                      imageDate: imagelist[index].imagedate ?? "",
+                    ),
+                  ),
+                );
+              },
+              child: imageContainer(
+                imageurl: imagelist[index].imageurl ?? "",
+              ),
             );
           }),
     );
@@ -141,9 +154,7 @@ class _imagelist extends State<imagelist> {
 }
 
 Widget imageContainer({
-  // required String imagename,
   required String imageurl,
-  // required String imagedate
 }) {
   return Container(
     decoration: BoxDecoration(
@@ -168,4 +179,77 @@ Widget imageContainer({
       ),
     ),
   );
+}
+class ImageDetailScreen extends StatelessWidget{
+  final String imageUrl;
+  final String imageName;
+  final String imageDate;
+  const ImageDetailScreen({
+    super.key,
+    required this.imageUrl,
+    required this.imageName,
+    required this.imageDate,
+  });
+
+  @override
+  Widget build(BuildContext context){
+    return Scaffold(
+      appBar: AppBar(
+        // title: Text(
+        //     imageName,
+        //   style: const TextStyle(
+        //     color: Colors.white,
+        //   ),
+        // ),
+        centerTitle: true,
+        backgroundColor: GlobalVariables.appBarColor,
+      ),
+      body: Stack(
+        children: [
+          Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Container(
+                margin: const EdgeInsets.all(20),
+                alignment: Alignment(0, 500),
+                child: ClipRRect(
+                  borderRadius: BorderRadius.circular(15),
+                  child: Image.network(
+                    imageUrl,
+                    fit:BoxFit.cover,
+                    height: 400,
+                    width:double.infinity,
+                  ),
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.only(left: 200),
+                child: Text(
+                  'Date: $imageDate',
+                  style: const TextStyle(
+                    fontSize: 15,
+                    fontWeight: FontWeight.w300,
+                  ),
+                ),
+              ),
+            ],
+          ),
+          Positioned(
+            bottom: 20,
+            left: 0,
+            child: ClipRRect(
+              borderRadius: BorderRadius.circular(15),
+              child: Image.asset(
+                'lib/screens/image/meme_cat.gif',
+                width:200,
+                height: 200,
+                fit: BoxFit.contain,
+              ),
+            )
+          )
+        ]
+      )
+    );
+  }
 }

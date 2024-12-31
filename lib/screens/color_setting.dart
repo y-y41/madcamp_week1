@@ -140,9 +140,10 @@ class _RotatingBarState extends State<RotatingBar> with SingleTickerProviderStat
             }
             _controller.forward();
             Future.delayed(_controller.duration!,() {
-              Navigator.pushReplacement(
+              Navigator.pushAndRemoveUntil(
                 context,
                 MaterialPageRoute(builder: (context) => HomeScreen()),
+                  (Route<dynamic> route)=>false,
               );
             });
             // startBounceAnimation(angle);
