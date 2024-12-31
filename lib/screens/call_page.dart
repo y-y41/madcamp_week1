@@ -2,6 +2,11 @@ import 'dart:ui';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/painting.dart';
+import 'package:flutter/rendering.dart';
+import 'package:flutter/services.dart';
+import 'package:flutter/widgets.dart';
+import 'package:madcamp_w1/data/person_data.dart';
 import 'package:madcamp_w1/screens/image_list2.dart';
 import 'package:url_launcher/url_launcher.dart'; // url_launcher 패키지 임포트
 
@@ -17,89 +22,6 @@ class image_url {
 }
 
 class _CallPageState extends State<CallPage> {
-  final List<Person> people = [
-    // 초기 데이터
-    Person(
-      name: "카고쉼",
-      description: "카이스트 고양이 쉼터",
-      oneComment: "카이스트 유일한 고양이 관리 동아리",
-      age: "2019년 설립",
-      gender: "고양이",
-      habitat: "전 기숙사에 동아리원 배치",
-      traits: "급식 사업 및 TNR(중성화), 굿즈 제작 등을 진행",
-      imageUrl: 'lib/screens/image/카고쉼 캐릭터.png',
-    ),
-    Person(
-      name: "고쥬",
-      description: "담당자: 010-0000-0000",
-      oneComment: "핑크 발바닥 젤리 애교 고양이",
-      age: "5살",
-      gender: "수컷",
-      habitat: "북측 기숙사",
-      traits: "잠맘보 고양이버전",
-      imageUrl: 'lib/screens/image/고쥬 이미지.png',
-    ),
-    Person(
-      name: "망망이",
-      description: "담당자: 010-0000-0000",
-      oneComment: "검은 고양이 네로~ 네로~",
-      age: "3살",
-      gender: "암컷",
-      habitat: "기계과 N7건물",
-      traits: "아름이가 낳은 5남매 중 막내 공주님",
-      imageUrl: 'lib/screens/image/망망이 이미지.png',
-    ),
-    Person(
-      name: "먼지",
-      description: "담당자: 010-0000-0000",
-      oneComment: "제작자 원픽 너무 너무 너무 귀여워",
-      age: "1살",
-      gender: "수컷",
-      habitat: "열린길",
-      traits: "생각보다 발견하기 어려움.....",
-      imageUrl: 'lib/screens/image/먼지 이미지.png',
-    ),
-    Person(
-      name: "복만이",
-      description: "담당자: 010-0000-0000",
-      oneComment: "봉송이 남친",
-      age: "4살",
-      gender: "진정한 수컷",
-      habitat: "사랑관&소망관",
-      traits: "봉송이한테 밥을 빼앗긴다는 소문이....",
-      imageUrl: 'lib/screens/image/복만이 이미지.png',
-    ),
-    Person(
-      name: "봉송이",
-      description: "담당자: 010-0000-0000",
-      oneComment: "복만이 여친",
-      age: "4살",
-      gender: "암컷",
-      habitat: "사랑관&소망관",
-      traits: "대표 뚱냥이",
-      imageUrl: 'lib/screens/image/봉송이 이미지.png',
-    ),
-    Person(
-      name: "심바",
-      description: "담당자: 010-0000-0000",
-      oneComment: "카이스트 고양이 모델 심바",
-      age: "2살",
-      gender: "수컷",
-      habitat: "희망관 앞 편의점 근처",
-      traits: "꽃을 좋아함",
-      imageUrl: 'lib/screens/image/심바 이미지.png',
-    ),
-    Person(
-      name: "제리",
-      description: "담당자: 010-0000-0000",
-      oneComment: "매점 츄르 도둑",
-      age: "1살",
-      gender: "암컷",
-      habitat: "북측 매점 근처",
-      traits: "활발하고 영리함",
-      imageUrl: 'lib/screens/image/제리 이미지.png',
-    ),
-  ];
   String searchQuery = "";
   void _updateSearchQuery(String query) {
     setState(() {
@@ -132,38 +54,122 @@ class _CallPageState extends State<CallPage> {
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
-          title: const Text('새로운 냥이 추가'),
+          title: const Text(
+            '새로운 냥이 추가',
+            style: TextStyle(fontSize: 18, fontWeight: FontWeight.w700),
+          ),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(15), // 다이얼로그 모서리를 둥글게
+          ),
+          backgroundColor: Colors.white,
           content: SingleChildScrollView(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                TextField(
-                  decoration: const InputDecoration(labelText: '이름'),
-                  onChanged: (value) => name = value,
+                Container(
+                  // height: 40,
+                  padding: EdgeInsets.symmetric(horizontal: 10),
+                  margin: EdgeInsets.only(bottom: 11),
+                  decoration: BoxDecoration(
+                      color: Color(0xFFF5F5F5),
+                      borderRadius: BorderRadius.circular(15)),
+                  child: TextField(
+                    decoration: const InputDecoration(
+                        labelText: '이름',
+                        labelStyle: TextStyle(fontWeight: FontWeight.w400),
+                        border: InputBorder.none),
+                    onChanged: (value) => name = value,
+                  ),
                 ),
-                TextField(
-                  decoration: const InputDecoration(labelText: '설명'),
-                  onChanged: (value) => description = value,
+                Container(
+                  // height: 40,
+                  padding: EdgeInsets.symmetric(horizontal: 10),
+                  margin: EdgeInsets.only(bottom: 11),
+                  decoration: BoxDecoration(
+                      color: Color(0xFFF5F5F5),
+                      borderRadius: BorderRadius.circular(15)),
+                  child: TextField(
+                    decoration: const InputDecoration(
+                        labelText: '설명',
+                        labelStyle: TextStyle(fontWeight: FontWeight.w400),
+                        border: InputBorder.none),
+                    onChanged: (value) => description = value,
+                  ),
                 ),
-                TextField(
-                  decoration: const InputDecoration(labelText: '한 줄 코멘트'),
-                  onChanged: (value) => oneComment = value,
+                Container(
+                  // height: 40,
+                  padding: EdgeInsets.symmetric(horizontal: 10),
+                  margin: EdgeInsets.only(bottom: 11),
+                  decoration: BoxDecoration(
+                      color: Color(0xFFF5F5F5),
+                      borderRadius: BorderRadius.circular(15)),
+                  child: TextField(
+                    decoration: const InputDecoration(
+                        labelText: '한 줄 코멘트',
+                        labelStyle: TextStyle(fontWeight: FontWeight.w400),
+                        border: InputBorder.none),
+                    onChanged: (value) => oneComment = value,
+                  ),
                 ),
-                TextField(
-                  decoration: const InputDecoration(labelText: '나이'),
-                  onChanged: (value) => age = value,
+                Container(
+                  // height: 40,
+                  padding: EdgeInsets.symmetric(horizontal: 10),
+                  margin: EdgeInsets.only(bottom: 11),
+                  decoration: BoxDecoration(
+                      color: Color(0xFFF5F5F5),
+                      borderRadius: BorderRadius.circular(15)),
+                  child: TextField(
+                    decoration: const InputDecoration(
+                        labelText: '나이',
+                        labelStyle: TextStyle(fontWeight: FontWeight.w400),
+                        border: InputBorder.none),
+                    onChanged: (value) => age = value,
+                  ),
                 ),
-                TextField(
-                  decoration: const InputDecoration(labelText: '성별'),
-                  onChanged: (value) => gender = value,
+                Container(
+                  // height: 40,
+                  padding: EdgeInsets.symmetric(horizontal: 10),
+                  margin: EdgeInsets.only(bottom: 11),
+                  decoration: BoxDecoration(
+                      color: Color(0xFFF5F5F5),
+                      borderRadius: BorderRadius.circular(15)),
+                  child: TextField(
+                    decoration: const InputDecoration(
+                        labelText: '성별',
+                        labelStyle: TextStyle(fontWeight: FontWeight.w400),
+                        border: InputBorder.none),
+                    onChanged: (value) => gender = value,
+                  ),
                 ),
-                TextField(
-                  decoration: const InputDecoration(labelText: '서식 장소'),
-                  onChanged: (value) => habitat = value,
+                Container(
+                  // height: 40,
+                  padding: EdgeInsets.symmetric(horizontal: 10),
+                  margin: EdgeInsets.only(bottom: 11),
+                  decoration: BoxDecoration(
+                      color: Color(0xFFF5F5F5),
+                      borderRadius: BorderRadius.circular(15)),
+                  child: TextField(
+                    decoration: const InputDecoration(
+                        labelText: '서식 장소',
+                        labelStyle: TextStyle(fontWeight: FontWeight.w400),
+                        border: InputBorder.none),
+                    onChanged: (value) => habitat = value,
+                  ),
                 ),
-                TextField(
-                  decoration: const InputDecoration(labelText: '특징'),
-                  onChanged: (value) => traits = value,
+                Container(
+                  // height: 40,
+                  padding: EdgeInsets.symmetric(horizontal: 10),
+                  margin: EdgeInsets.only(bottom: 11),
+                  decoration: BoxDecoration(
+                      color: Color(0xFFF5F5F5),
+                      borderRadius: BorderRadius.circular(15)),
+                  child: TextField(
+                    decoration: const InputDecoration(
+                        labelText: '특징',
+                        labelStyle: TextStyle(fontWeight: FontWeight.w400),
+                        border: InputBorder.none),
+                    onChanged: (value) => traits = value,
+                  ),
                 ),
                 TextButton(
                   onPressed: () async {
@@ -177,7 +183,11 @@ class _CallPageState extends State<CallPage> {
                       });
                     }
                   },
-                  child: const Text('Picture'),
+                  child: const Text(
+                    'Picture',
+                    style: TextStyle(
+                        color: Color(0xFF0E87C8), fontWeight: FontWeight.w400),
+                  ),
                 ),
               ],
             ),
@@ -185,7 +195,10 @@ class _CallPageState extends State<CallPage> {
           actions: [
             TextButton(
               onPressed: () => Navigator.of(context).pop(),
-              child: const Text('취소'),
+              child: const Text(
+                '취소',
+                style: TextStyle(color: Colors.black),
+              ),
             ),
             TextButton(
               onPressed: () {
@@ -205,7 +218,10 @@ class _CallPageState extends State<CallPage> {
                   Navigator.of(context).pop();
                 }
               },
-              child: const Text('추가'),
+              child: const Text(
+                '추가',
+                style: TextStyle(color: Colors.black),
+              ),
             ),
           ],
         );
@@ -283,18 +299,19 @@ class _CallPageState extends State<CallPage> {
           ),
           backgroundColor: Colors.white,
           content: Container(
-            // padding: EdgeInsets.symmetric(vertical: 10),
-            width: MediaQuery.of(context).size.width * 0.55, // 다이얼로그 너비
+            // margin: EdgeInsets.symmetric(horizontal: 40),
+            // padding: EdgeInsets.symmetric(horizontal: 35),
+            width: MediaQuery.of(context).size.width - 40, // 다이얼로그 너비
             child: Column(
               mainAxisSize: MainAxisSize.min, // 다이얼로그 높이를 내용에 맞게 조절
-              crossAxisAlignment: CrossAxisAlignment.start, // 모든 텍스트 왼쪽 정렬
+              // crossAxisAlignment: CrossAxisAlignment.start, // 모든 텍스트 왼쪽 정렬
               children: [
                 // 닫기 버튼 오른쪽 상단
                 Align(
                   alignment: Alignment.topRight,
                   child: IconButton(
                     icon: const Icon(
-                      Icons.close,
+                      Icons.close_rounded,
                       color: Colors.grey,
                       size: 30,
                     ),
@@ -302,110 +319,132 @@ class _CallPageState extends State<CallPage> {
                   ),
                 ),
                 // 고양이 이미지
-                Center(
-                  child: ClipOval(
-                    child: Image.asset(
-                      person.imageUrl,
-                      width: 150, // 이미지 너비
-                      height: 150, // 이미지 높이
-                      fit: BoxFit.cover, // 이미지 비율 유지
-                      errorBuilder: (context, error, stackTrace) => Image.asset(
-                        'assets/images/카고.png', // 실패 시 대체 이미지
-                        width: 150,
-                        height: 150,
-                      ),
-                    ),
-                  ),
-                ),
-                const SizedBox(height: 13), // 이미지와 텍스트 간격
-                // 고양이 이름
-                Center(
-                  child: Text(
-                    person.name,
-                    style: const TextStyle(
-                      fontSize: 16,
-                      fontWeight: FontWeight.w700,
-                      color: Colors.black,
-                    ),
-                  ),
-                ),
-                const SizedBox(height: 8), // 이름과 설명 간격
-                // 담당자 및 전화번호
-                Center(
-                  child: GestureDetector(
-                    onTap: () async {
-                      // 전화번호 추출 (숫자만 남기기)
-                      final phone =
-                          person.description.replaceAll(RegExp(r'[^\d+]'), '');
-                      final Uri telUri =
-                          Uri(scheme: "tel", path: phone); // tel 스키마 생성
-                      if (await canLaunchUrl(telUri)) {
-                        // 전화 앱 실행 가능 여부 확인
-                        await launchUrl(telUri); // 전화 앱 실행
-                      } else {
-                        throw 'Could not launch $telUri'; // 에러 처리
-                      }
-                    },
-                    child: Text(
-                      person.description, // description이 전화번호를 포함
-                      style: const TextStyle(
-                        fontSize: 14,
-                        color: Colors.green, // 클릭 가능성을 시각적으로 표현
-                      ),
-                    ),
-                  ),
-                ),
-                const SizedBox(height: 8), // 설명과 코멘트 간격
-                Text(
-                  person.oneComment,
-                  style: const TextStyle(
-                    fontSize: 14,
-                    fontStyle: FontStyle.italic,
-                    color: Colors.grey,
-                  ),
-                ),
-                const SizedBox(height: 16), // 추가 정보와 간격
-                // 추가 정보 섹션
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start, // 텍스트 왼쪽 정렬
-                  children: [
-                    Text(
-                      "3살 / ${person.gender}",
-                      style: const TextStyle(fontSize: 14, color: Colors.black),
-                    ),
-                    const SizedBox(height: 8), // 항목 간 간격
-                    Text(
-                      "서식장소: ${person.habitat}",
-                      style: const TextStyle(fontSize: 14, color: Colors.black),
-                    ),
-                    const SizedBox(height: 8), // 항목 간 간격
-                    Text(
-                      "특징: ${person.traits}",
-                      style: const TextStyle(fontSize: 14, color: Colors.black),
-                    ),
-                  ],
-                ),
-                const SizedBox(height: 16), // 추가 정보와 인스타그램 링크 간격
-                // 인스타그램 링크
-                GestureDetector(
-                  onTap: () async {
-                    const url =
-                        "https://instagram.com/kaist_cat_network"; // URL 정의
-                    final Uri uri = Uri.parse(url); // URL을 Uri 객체로 변환
-                    if (await canLaunchUrl(uri)) {
-                      // Uri를 사용하여 URL 열기 가능 여부 확인
-                      await launchUrl(uri); // URL 열기
-                    } else {
-                      throw 'Could not launch $url'; // URL 열기 실패 시 에러 처리
-                    }
-                  },
-                  child: Text(
-                    "카이스트 고양이 쉼터 인스타: @kaist_cat_network",
-                    style: const TextStyle(
-                      fontSize: 12,
-                      color: Colors.blueAccent,
-                    ),
-                  ),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 20),
+                  child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Center(
+                          child: ClipOval(
+                            child: Image.asset(
+                              person.imageUrl,
+                              width: 150, // 이미지 너비
+                              height: 150, // 이미지 높이
+                              fit: BoxFit.cover, // 이미지 비율 유지
+                              errorBuilder: (context, error, stackTrace) =>
+                                  Image.asset(
+                                'assets/images/카고.png', // 실패 시 대체 이미지
+                                width: 150,
+                                height: 150,
+                              ),
+                            ),
+                          ),
+                        ),
+                        const SizedBox(height: 13), // 이미지와 텍스트 간격
+                        // 고양이 이름
+                        Center(
+                          child: Text(
+                            person.name,
+                            style: const TextStyle(
+                              fontSize: 16,
+                              fontWeight: FontWeight.w700,
+                              color: Colors.black,
+                            ),
+                          ),
+                        ),
+                        const SizedBox(height: 4), // 이름과 설명 간격
+                        // 담당자 및 전화번호
+                        Center(
+                          child: GestureDetector(
+                            onTap: () async {
+                              // 전화번호 추출 (숫자만 남기기)
+                              final phone = person.description
+                                  .replaceAll(RegExp(r'[^\d+]'), '');
+                              final Uri telUri =
+                                  Uri(scheme: "tel", path: phone); // tel 스키마 생성
+                              if (await canLaunchUrl(telUri)) {
+                                // 전화 앱 실행 가능 여부 확인
+                                await launchUrl(telUri); // 전화 앱 실행
+                              } else {
+                                throw 'Could not launch $telUri'; // 에러 처리
+                              }
+                            },
+                            child: Text(
+                              person.description, // description이 전화번호를 포함
+                              style: const TextStyle(
+                                fontSize: 14,
+                                fontWeight: FontWeight.w400,
+                                color: Color(0xFF0E87C8), // 클릭 가능성을 시각적으로 표현
+                              ),
+                            ),
+                          ),
+                        ),
+                        const SizedBox(height: 4), // 설명과 코멘트 간격
+                        Center(
+                          child: Text(
+                            person.oneComment,
+                            style: const TextStyle(
+                              fontSize: 13,
+                              fontWeight: FontWeight.w400,
+                              fontStyle: FontStyle.italic,
+                              color: Colors.grey,
+                            ),
+                          ),
+                        ),
+                        const SizedBox(height: 25), // 추가 정보와 간격
+                        // 추가 정보 섹션
+                        Column(
+                          crossAxisAlignment:
+                              CrossAxisAlignment.start, // 텍스트 왼쪽 정렬
+                          children: [
+                            Text(
+                              "3살 / ${person.gender}",
+                              style: const TextStyle(
+                                  fontSize: 14,
+                                  fontWeight: FontWeight.w500,
+                                  color: Colors.black),
+                            ),
+                            const SizedBox(height: 8), // 항목 간 간격
+                            Text(
+                              "서식장소: ${person.habitat}",
+                              style: const TextStyle(
+                                  fontSize: 14,
+                                  fontWeight: FontWeight.w500,
+                                  color: Colors.black),
+                            ),
+                            const SizedBox(height: 8), // 항목 간 간격
+                            Text(
+                              "특징: ${person.traits}",
+                              style: const TextStyle(
+                                  fontSize: 14,
+                                  fontWeight: FontWeight.w500,
+                                  color: Colors.black),
+                            ),
+                          ],
+                        ),
+                        const SizedBox(height: 25), // 추가 정보와 인스타그램 링크 간격
+                        // 인스타그램 링크
+                        GestureDetector(
+                          onTap: () async {
+                            const url =
+                                "https://instagram.com/kaist_cat_network"; // URL 정의
+                            final Uri uri = Uri.parse(url); // URL을 Uri 객체로 변환
+                            if (await canLaunchUrl(uri)) {
+                              // Uri를 사용하여 URL 열기 가능 여부 확인
+                              await launchUrl(uri); // URL 열기
+                            } else {
+                              throw 'Could not launch $url'; // URL 열기 실패 시 에러 처리
+                            }
+                          },
+                          child: Text(
+                            "카고쉼 인스타: @kaist_cat_network",
+                            style: const TextStyle(
+                              fontSize: 12,
+                              color: Color(0xFF0E87C8),
+                            ),
+                          ),
+                        ),
+                      ]),
                 ),
                 const SizedBox(height: 16), // 하단 버튼과의 간격
                 // 하단의 아이콘 버튼들
@@ -413,15 +452,15 @@ class _CallPageState extends State<CallPage> {
                   mainAxisAlignment: MainAxisAlignment.end, // 버튼을 오른쪽으로 정렬
                   children: [
                     IconButton(
-                      icon:
-                          const Icon(Icons.edit, color: Colors.blue), // 수정 아이콘
+                      icon: const Icon(Icons.edit_rounded,
+                          color: Colors.grey), // 수정 아이콘
                       tooltip: '수정',
                       onPressed: () =>
                           _editPerson(context, person), // 수정 다이얼로그 호출
                     ),
                     IconButton(
-                      icon:
-                          const Icon(Icons.delete, color: Colors.red), // 삭제 아이콘
+                      icon: const Icon(CupertinoIcons.delete_simple,
+                          color: Colors.grey), // 삭제 아이콘
                       tooltip: '삭제',
                       onPressed: () {
                         setState(() {
@@ -467,59 +506,147 @@ class _CallPageState extends State<CallPage> {
           builder: (context, setState) {
             return AlertDialog(
               title: const Text('정보 수정'),
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(15), // 다이얼로그 모서리를 둥글게
+              ),
+              backgroundColor: Colors.white,
               content: SingleChildScrollView(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    TextField(
-                      controller: nameController,
-                      decoration: const InputDecoration(labelText: '이름'),
+                    Container(
+                      // height: 40,
+                      padding: EdgeInsets.symmetric(horizontal: 10),
+                      margin: EdgeInsets.only(bottom: 11),
+                      decoration: BoxDecoration(
+                          color: Color(0xFFF5F5F5),
+                          borderRadius: BorderRadius.circular(15)),
+                      child: TextField(
+                        controller: nameController,
+                        decoration: const InputDecoration(
+                            contentPadding: EdgeInsets.symmetric(vertical: 2),
+                            labelText: '이름',
+                            labelStyle: TextStyle(fontWeight: FontWeight.w400),
+                            border: InputBorder.none),
+                      ),
                     ),
-                    TextField(
-                      controller: descriptionController,
-                      decoration: const InputDecoration(labelText: '설명'),
+                    Container(
+                      height: 40,
+                      padding: EdgeInsets.symmetric(horizontal: 10),
+                      margin: EdgeInsets.only(bottom: 11),
+                      decoration: BoxDecoration(
+                          color: Color(0xFFF5F5F5),
+                          borderRadius: BorderRadius.circular(15)),
+                      child: TextField(
+                        controller: descriptionController,
+                        decoration: const InputDecoration(
+                            labelText: '설명',
+                            labelStyle: TextStyle(fontWeight: FontWeight.w400),
+                            border: InputBorder.none),
+                      ),
                     ),
-                    TextField(
-                      controller: oneCommentController,
-                      decoration: const InputDecoration(labelText: '한 줄 코멘트'),
+                    Container(
+                      // height: 40,
+                      padding: EdgeInsets.symmetric(horizontal: 10),
+                      margin: EdgeInsets.only(bottom: 11),
+                      decoration: BoxDecoration(
+                          color: Color(0xFFF5F5F5),
+                          borderRadius: BorderRadius.circular(15)),
+                      child: TextField(
+                        controller: oneCommentController,
+                        decoration: const InputDecoration(
+                            labelText: '한 줄 코멘트',
+                            labelStyle: TextStyle(fontWeight: FontWeight.w400),
+                            border: InputBorder.none),
+                      ),
                     ),
-                    TextField(
-                      controller: ageController,
-                      decoration: const InputDecoration(labelText: '나이'),
+                    Container(
+                      // height: 40,
+                      padding: EdgeInsets.symmetric(horizontal: 10),
+                      margin: EdgeInsets.only(bottom: 11),
+                      decoration: BoxDecoration(
+                          color: Color(0xFFF5F5F5),
+                          borderRadius: BorderRadius.circular(15)),
+                      child: TextField(
+                        controller: ageController,
+                        decoration: const InputDecoration(
+                            labelText: '나이',
+                            labelStyle: TextStyle(fontWeight: FontWeight.w400),
+                            border: InputBorder.none),
+                      ),
                     ),
-                    TextField(
-                      controller: genderController,
-                      decoration: const InputDecoration(labelText: '성별'),
+                    Container(
+                      // height: 40,
+                      padding: EdgeInsets.symmetric(horizontal: 10),
+                      margin: EdgeInsets.only(bottom: 11),
+                      decoration: BoxDecoration(
+                          color: Color(0xFFF5F5F5),
+                          borderRadius: BorderRadius.circular(15)),
+                      child: TextField(
+                        controller: genderController,
+                        decoration: const InputDecoration(
+                            labelText: '성별',
+                            labelStyle: TextStyle(fontWeight: FontWeight.w400),
+                            border: InputBorder.none),
+                      ),
                     ),
-                    TextField(
-                      controller: habitatController,
-                      decoration: const InputDecoration(labelText: '서식 장소'),
+                    Container(
+                      // height: 40,
+                      padding: EdgeInsets.symmetric(horizontal: 10),
+                      margin: EdgeInsets.only(bottom: 11),
+                      decoration: BoxDecoration(
+                          color: Color(0xFFF5F5F5),
+                          borderRadius: BorderRadius.circular(15)),
+                      child: TextField(
+                        controller: habitatController,
+                        decoration: const InputDecoration(
+                            labelText: '서식 장소',
+                            labelStyle: TextStyle(fontWeight: FontWeight.w400),
+                            border: InputBorder.none),
+                      ),
                     ),
-                    TextField(
-                      controller: traitsController,
-                      decoration: const InputDecoration(labelText: '특징'),
+                    Container(
+                      // height: 40,
+                      padding: EdgeInsets.symmetric(horizontal: 10),
+                      margin: EdgeInsets.only(bottom: 11),
+                      decoration: BoxDecoration(
+                          color: Color(0xFFF5F5F5),
+                          borderRadius: BorderRadius.circular(15)),
+                      child: TextField(
+                        controller: traitsController,
+                        decoration: const InputDecoration(
+                            labelText: '특징',
+                            labelStyle: TextStyle(fontWeight: FontWeight.w400),
+                            border: InputBorder.none),
+                      ),
                     ),
                     TextButton(
-                      onPressed: () async {
-                        String? selectedImageUrl = await Navigator.push(
-                          context,
-                          MaterialPageRoute(builder: (context) => imagelist2()),
-                        );
-                        if (selectedImageUrl != null) {
-                          setState(() {
-                            imageUrlController.text = selectedImageUrl;
-                          });
-                        }
-                      },
-                      child: const Text('Picture'),
-                    ),
+                        onPressed: () async {
+                          String? selectedImageUrl = await Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => imagelist2()),
+                          );
+                          if (selectedImageUrl != null) {
+                            setState(() {
+                              imageUrlController.text = selectedImageUrl;
+                            });
+                          }
+                        },
+                        child: const Text(
+                          'Picture',
+                          style: TextStyle(
+                              color: Color(0xFF0E87C8),
+                              fontWeight: FontWeight.w400),
+                        ))
                   ],
                 ),
               ),
               actions: [
                 TextButton(
                   onPressed: () => Navigator.of(context).pop(),
-                  child: const Text('취소'),
+                  child:
+                      const Text('취소', style: TextStyle(color: Colors.black)),
                 ),
                 TextButton(
                   onPressed: () {
@@ -544,7 +671,8 @@ class _CallPageState extends State<CallPage> {
                       Navigator.of(context).popUntil((route) => route.isFirst);
                     }
                   },
-                  child: Text(isSaved ? '수정 완료' : '저장'),
+                  child: Text(isSaved ? '수정 완료' : '저장',
+                      style: TextStyle(color: Colors.black)),
                 ),
               ],
             );
@@ -627,26 +755,4 @@ class _CallPageState extends State<CallPage> {
           ),
         ),
       );
-}
-
-class Person {
-  String name;
-  String description;
-  String oneComment;
-  String age;
-  String gender;
-  String habitat;
-  String traits;
-  String imageUrl;
-
-  Person({
-    required this.name,
-    required this.description,
-    required this.oneComment,
-    required this.age,
-    required this.gender,
-    required this.habitat,
-    required this.traits,
-    required this.imageUrl,
-  });
 }
