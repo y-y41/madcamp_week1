@@ -13,35 +13,47 @@ class imagelist2 extends StatefulWidget {
 class _imagelist2 extends State<imagelist2> {
   List<Imagedata> imagelist = [
     Imagedata(
-        imagenum: 1,
-        imageurl: 'lib/screens/image/고양이1.png',
-        imagename: 'Dog',
-        imagedate: '2024-12-27'),
+      imagenum: 1,
+      imageurl: 'lib/screens/image/고양이1.png',
+      imagename: '나드리',
+      imagedate: '2024년 12월 27일',
+      imageloc: '대전 유성구 대학로 291 구성동 23',
+    ),
     Imagedata(
-        imagenum: 2,
-        imageurl: 'lib/screens/image/고양이2.png',
-        imagename: 'Laptop',
-        imagedate: '2024-12-27'),
+      imagenum: 2,
+      imageurl: 'lib/screens/image/고양이2.png',
+      imagename: '키키',
+      imagedate: '2024년 8월 27일',
+      imageloc: '대전 유성구 대학로 291 양분순빌딩 E16-1 102호',
+    ),
     Imagedata(
         imagenum: 3,
         imageurl: 'lib/screens/image/고양이3.png',
-        imagename: 'Mountain',
-        imagedate: '2024-12-27'),
+        imagename: '아롱',
+        imagedate: '2023년 10월 17일',
+        imageloc: '대전 유성구 대학로 291 구성동 400'
+    ),
     Imagedata(
         imagenum: 4,
         imageurl: 'lib/screens/image/고양이4.png',
-        imagename: 'Lighthouse',
-        imagedate: '2024-12-27'),
+        imagename: '포리',
+        imagedate: '2024년 2월 8일',
+        imageloc: '대전 유성구 어은동 52-10'
+    ),
     Imagedata(
         imagenum: 5,
         imageurl: 'lib/screens/image/고양이5.png',
-        imagename: 'Laptop',
-        imagedate: '2024-12-27'),
+        imagename: '벼루',
+        imagedate: '2022년 10월 19일',
+        imageloc: '대전 유성구 대학로 291 구성동 53-3'
+    ),
     Imagedata(
         imagenum: 6,
         imageurl: 'lib/screens/image/고양이6.png',
-        imagename: 'Laptop',
-        imagedate: '2024-12-27'),
+        imagename: '마루',
+        imagedate: '2024년 6월 13일',
+        imageloc: '대전 유성구 대학로 291 어은동 44'
+    ),
     Imagedata(
         imagenum: 7,
         imageurl: 'lib/screens/image/고양이7.png',
@@ -140,9 +152,6 @@ class _imagelist2 extends State<imagelist2> {
                 imageurl: imagelist[index].imageurl ??"",
               ),
             );
-            // return imageContainer(
-            //   imageurl: imagelist[index].imageurl ?? "",
-            // );
           }),
     );
   }
@@ -165,7 +174,7 @@ Widget imageContainer({
     padding: const EdgeInsets.all(5),
     child: ClipRRect(
       borderRadius: BorderRadius.circular(10),
-      child: Image.network(
+      child: Image.asset(
         imageurl,
         fit: BoxFit.cover,
         height: 150,
