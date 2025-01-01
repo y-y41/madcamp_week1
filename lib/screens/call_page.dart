@@ -427,12 +427,15 @@ class _CallPageState extends State<CallPage> {
                         // 인스타그램 링크
                         GestureDetector(
                           onTap: () async {
-                            const url =
-                                "https://instagram.com/kaist_cat_network"; // URL 정의
+                            const url = "https://instagram.com/kaist_cat_network"; // URL 정의
                             final Uri uri = Uri.parse(url); // URL을 Uri 객체로 변환
+
                             if (await canLaunchUrl(uri)) {
-                              // Uri를 사용하여 URL 열기 가능 여부 확인
-                              await launchUrl(uri); // URL 열기
+                              // 외부 브라우저/앱에서 URL 열기
+                              await launchUrl(
+                                uri,
+                                mode: LaunchMode.externalApplication, // 외부 애플리케이션 사용
+                              );
                             } else {
                               throw 'Could not launch $url'; // URL 열기 실패 시 에러 처리
                             }
@@ -441,7 +444,8 @@ class _CallPageState extends State<CallPage> {
                             "카고쉼 인스타: @kaist_cat_network",
                             style: const TextStyle(
                               fontSize: 12,
-                              color: Color(0xFF0E87C8),
+                              color: Color(0xFF0E87C8), // 파란색 링크 스타일
+                              decoration: TextDecoration.underline, // 밑줄 추가
                             ),
                           ),
                         ),
