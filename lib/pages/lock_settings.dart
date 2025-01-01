@@ -12,7 +12,8 @@ class LockSettings extends StatefulWidget {
 class _LockSettingsState extends State<LockSettings> {
   final List<int> _selectedPattern = []; // 설정 중인 패턴
   final Map<int, Offset> _dotPositions = {}; // 각 점의 위치 저장
-  final Map<int, bool> _dotStates = {}; // 각 점의 상태 (true: 입닫힌 고양이, false: 입벌린 고양이)
+  final Map<int, bool> _dotStates =
+      {}; // 각 점의 상태 (true: 입닫힌 고양이, false: 입벌린 고양이)
   Offset? _currentDragPosition; // 현재 드래그 위치
   ui.Image? _openMouthImage; // 입벌린 고양이 이미지
   ui.Image? _closedMouthImage; // 입닫힌 고양이 이미지
@@ -29,8 +30,10 @@ class _LockSettingsState extends State<LockSettings> {
     final openData = await rootBundle.load('lib/screens/image/입닫은 고양이.png');
     final closedData = await rootBundle.load('lib/screens/image/입벌린 고양이.png');
 
-    final openCodec = await ui.instantiateImageCodec(openData.buffer.asUint8List());
-    final closedCodec = await ui.instantiateImageCodec(closedData.buffer.asUint8List());
+    final openCodec =
+        await ui.instantiateImageCodec(openData.buffer.asUint8List());
+    final closedCodec =
+        await ui.instantiateImageCodec(closedData.buffer.asUint8List());
 
     final openFrame = await openCodec.getNextFrame();
     final closedFrame = await closedCodec.getNextFrame();
@@ -67,6 +70,7 @@ class _LockSettingsState extends State<LockSettings> {
       _handleTouch(_currentDragPosition!, immediate: true);
     });
   }
+
   void _resetPattern() {
     setState(() {
       _selectedPattern.clear(); // 선택된 패턴 초기화
@@ -81,6 +85,7 @@ class _LockSettingsState extends State<LockSettings> {
       });
     });
   }
+
   void _onDragEnd(DragEndDetails details) {
     setState(() {
       _currentDragPosition = null;
@@ -127,10 +132,10 @@ class _LockSettingsState extends State<LockSettings> {
     return isCloseEnough && isNotAlreadyConnected;
   }
 
-
   void _startImageChangeTimer(int index) {
     _dotTimers[index]?.cancel(); // 기존 타이머 취소
-    _dotTimers[index] = Timer.periodic(const Duration(milliseconds: 150), (timer) {
+    _dotTimers[index] =
+        Timer.periodic(const Duration(milliseconds: 150), (timer) {
       setState(() {
         _dotStates[index] = !_dotStates[index]!; // 상태를 전환
       });
@@ -147,63 +152,115 @@ class _LockSettingsState extends State<LockSettings> {
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
-        title: const Text('패턴 설정'),
         backgroundColor: Colors.white,
-      ),
-      body: Column(
-        children: [
-          const SizedBox(height: 90), // 문구와 상단의 간격 추가
-          const Text(
-            '원하는 패턴을 작성하세요',
-            style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+        leading: IconButton(
+          icon: Icon(
+            Icons.arrow_back_ios_rounded,
+            color: Colors.black,
           ),
-          const SizedBox(height: 20), // 문구와 패턴 사이의 간격
-          Expanded(
-            child: Center(
-              child: GestureDetector(
-                onPanStart: _onDragStart,
-                onPanUpdate: _onDragUpdate,
-                onPanEnd: _onDragEnd,
-                child: CustomPaint(
-                  size: const Size(300, 300),
-                  painter: _PatternPainter(
-                    _dotPositions,
-                    _selectedPattern,
-                    _currentDragPosition,
-                    _openMouthImage,
-                    _closedMouthImage,
-                    _dotStates,
+          onPressed: () {
+            Navigator.pop(context);
+          },
+        ),
+      ),
+      body: Container(
+        padding: EdgeInsets.symmetric(horizontal: 20),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            // const SizedBox(height: 90), // 문구와 상단의 간격 추가
+            const Text(
+              '패턴설정',
+              style: TextStyle(fontSize: 24, fontWeight: FontWeight.w700),
+            ),
+            // const SizedBox(height: 20), // 문구와 패턴 사이의 간격
+            SizedBox(
+              height: MediaQuery.of(context).size.width - 40,
+              child: Expanded(
+                child: Center(
+                  child: GestureDetector(
+                    onPanStart: _onDragStart,
+                    onPanUpdate: _onDragUpdate,
+                    onPanEnd: _onDragEnd,
+                    child: CustomPaint(
+                      size: const Size(300, 300),
+                      painter: _PatternPainter(
+                        _dotPositions,
+                        _selectedPattern,
+                        _currentDragPosition,
+                        _openMouthImage,
+                        _closedMouthImage,
+                        _dotStates,
+                      ),
+                    ),
                   ),
                 ),
               ),
             ),
-          ),
-          const SizedBox(height: 10), // 패턴과 버튼 사이의 간격
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: [
-
-              ElevatedButton(
-                onPressed: _resetPattern, // 초기화 버튼 클릭 시 호출
-                style: ElevatedButton.styleFrom(
-                  padding: const EdgeInsets.symmetric(horizontal: 50, vertical: 15),
-                  textStyle: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-                  backgroundColor: Colors.white, // 초기화 버튼의 색상을 빨간색으로 설정
+            // const SizedBox(height: 10), // 패턴과 버튼 사이의 간격
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                GestureDetector(
+                  onTap: _resetPattern,
+                  child: Container(
+                      width: 120,
+                      height: 50,
+                      decoration: BoxDecoration(
+                          color: Colors.white,
+                          borderRadius: BorderRadius.circular(50),
+                          boxShadow: [
+                            BoxShadow(
+                                color: Colors.black.withOpacity(0.25),
+                                offset: Offset(0, 2),
+                                blurRadius: 4,
+                                spreadRadius: 0)
+                          ]),
+                      child: Center(
+                          child: Text(
+                        '초기화',
+                        style: TextStyle(
+                            fontSize: 16, fontWeight: FontWeight.w500),
+                      ))),
                 ),
-                child: const Text('초기화'),
-              ),
-              ElevatedButton(
-                onPressed: _savePattern,
-                style: ElevatedButton.styleFrom(
-                  padding: const EdgeInsets.symmetric(horizontal: 50, vertical: 15),
-                  textStyle: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                GestureDetector(
+                  onTap: _savePattern,
+                  child: Container(
+                      width: 120,
+                      height: 50,
+                      decoration: BoxDecoration(
+                          color: Colors.white,
+                          borderRadius: BorderRadius.circular(50),
+                          boxShadow: [
+                            BoxShadow(
+                                color: Colors.black.withOpacity(0.25),
+                                offset: Offset(0, 2),
+                                blurRadius: 4,
+                                spreadRadius: 0)
+                          ]),
+                      child: Center(
+                          child: Text(
+                        '저장',
+                        style: TextStyle(
+                            fontSize: 16, fontWeight: FontWeight.w500),
+                      ))),
                 ),
-                child: const Text('패턴 저장'),
-              ),
-            ],
-          ),
-          const SizedBox(height: 100), // 버튼 아래의 간격
-        ],
+                // ElevatedButton(
+                //   onPressed: _savePattern,
+                //   style: ElevatedButton.styleFrom(
+                //     padding: const EdgeInsets.symmetric(
+                //         horizontal: 50, vertical: 15),
+                //     textStyle: const TextStyle(
+                //         fontSize: 18, fontWeight: FontWeight.bold),
+                //   ),
+                //   child: const Text('패턴 저장'),
+                // ),
+              ],
+            ),
+            const SizedBox(height: 20), // 버튼 아래의 간격
+          ],
+        ),
       ),
     );
   }
@@ -218,13 +275,13 @@ class _PatternPainter extends CustomPainter {
   final Map<int, bool> dotStates;
 
   _PatternPainter(
-      this.dotPositions,
-      this.selectedPattern,
-      this.currentDragPosition,
-      this.openMouthImage,
-      this.closedMouthImage,
-      this.dotStates,
-      );
+    this.dotPositions,
+    this.selectedPattern,
+    this.currentDragPosition,
+    this.openMouthImage,
+    this.closedMouthImage,
+    this.dotStates,
+  );
 
   @override
   void paint(Canvas canvas, Size size) {
@@ -253,7 +310,6 @@ class _PatternPainter extends CustomPainter {
     dotPositions[8] = Offset(center.dx + offsetX, center.dy + offsetY);
 
     // 점 그리기
-
 
     // 선택된 패턴 연결선 그리기
     for (int i = 0; i < selectedPattern.length - 1; i++) {

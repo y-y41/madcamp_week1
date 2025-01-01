@@ -28,12 +28,12 @@ class _RotatingBarState extends State<RotatingBar> with SingleTickerProviderStat
   Offset center = Offset(0, 0); // Center of the bar
   Offset initialTouchPoint=Offset(0,0);
   double angle = 0.0; // Current angle of the bar
-  double initialAngle=0.0;
-  double minAngle=-pi/3.5;
-  double maxAngle=pi/8.5;
-  double a=0.6;
-  double x=0.0;
-  double y=0.0;
+  double initialAngle = 0.0;
+  double minAngle = -pi / 3.5;
+  double maxAngle = pi / 8.5;
+  double a = 0.6;
+  double x = 0.0;
+  double y = 0.0;
 
   bool isLoading=true;
 
@@ -77,11 +77,11 @@ class _RotatingBarState extends State<RotatingBar> with SingleTickerProviderStat
         }
       });
     });
-    imagepaths[1]=imagepaths[3];
-    angle=0;
-    a=2;
-    x=2;
-    y=0.5;
+    imagepaths[1] = imagepaths[3];
+    angle = 0;
+    a = 2;
+    x = 2;
+    y = 0.5;
   }
 
   Color calculate(double angle) {
@@ -193,7 +193,7 @@ class _RotatingBarState extends State<RotatingBar> with SingleTickerProviderStat
                     ),
                   ),
                   Align(
-                    alignment: Alignment(x,y),
+                    alignment: Alignment(x, y),
                     child: Transform.scale(
                       scale: a,
                       child: Image.asset(

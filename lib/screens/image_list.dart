@@ -15,58 +15,107 @@ class _imagelist extends State<imagelist> {
   List<Imagedata> imagelist = [
     Imagedata(
       imagenum: 1,
-      imageurl: 'lib/screens/image/고양이1.png',
-      imagename: '나드리',
+      imageurl: 'lib/screens/image/카고쉼 캐릭터.png',
+      imagename: '카고쉼',
       imagedate: '2024년 12월 27일',
-      imageloc: '대전 유성구 대학로 291 구성동 23',
+      imageloc: '전 기숙사에 동아리원 배치',
     ),
     Imagedata(
       imagenum: 2,
+      imageurl: 'lib/screens/image/고쥬 이미지.png',
+      imagename: '고쥬',
+      imagedate: '2024년 12월 27일',
+      imageloc: '북측 기숙사',
+    ),
+    Imagedata(
+      imagenum: 3,
+      imageurl: 'lib/screens/image/망망이 이미지.png',
+      imagename: '망망이',
+      imagedate: '2024년 12월 27일',
+      imageloc: '기계과 N7건물',
+    ),
+    Imagedata(
+      imagenum: 4,
+      imageurl: 'lib/screens/image/먼지 이미지.png',
+      imagename: '먼지',
+      imagedate: '2024년 12월 27일',
+      imageloc: '열린길',
+    ),
+    Imagedata(
+      imagenum: 5,
+      imageurl: 'lib/screens/image/복만이 이미지.png',
+      imagename: '복만이',
+      imagedate: '2024년 12월 27일',
+      imageloc: '사랑관&소망관',
+    ),
+    Imagedata(
+      imagenum: 6,
+      imageurl: 'lib/screens/image/봉송이 이미지.png',
+      imagename: '봉송이',
+      imagedate: '2024년 12월 27일',
+      imageloc: '사랑관&소망관',
+    ),
+    Imagedata(
+      imagenum: 7,
+      imageurl: 'lib/screens/image/심바 이미지.png',
+      imagename: '심바',
+      imagedate: '2024년 12월 27일',
+      imageloc: '희망관 앞 편의점',
+    ),
+    Imagedata(
+      imagenum: 8,
+      imageurl: 'lib/screens/image/제리 이미지.png',
+      imagename: '제리',
+      imagedate: '2024년 12월 27일',
+      imageloc: '북측 매점',
+    ),
+    Imagedata(
+      imagenum: 9,
       imageurl: 'lib/screens/image/고양이2.png',
       imagename: '키키',
       imagedate: '2024년 8월 27일',
       imageloc: '대전 유성구 대학로 291 양분순빌딩 E16-1 102호',
     ),
     Imagedata(
-        imagenum: 3,
+        imagenum: 10,
         imageurl: 'lib/screens/image/고양이3.png',
         imagename: '아롱',
         imagedate: '2023년 10월 17일',
         imageloc: '대전 유성구 대학로 291 구성동 400'
     ),
     Imagedata(
-        imagenum: 4,
+        imagenum: 11,
         imageurl: 'lib/screens/image/고양이4.png',
         imagename: '포리',
         imagedate: '2024년 2월 8일',
         imageloc: '대전 유성구 어은동 52-10'
     ),
     Imagedata(
-        imagenum: 5,
+        imagenum: 12,
         imageurl: 'lib/screens/image/고양이5.png',
         imagename: '벼루',
         imagedate: '2022년 10월 19일',
         imageloc: '대전 유성구 대학로 291 구성동 53-3'
     ),
     Imagedata(
-        imagenum: 6,
+        imagenum: 13,
         imageurl: 'lib/screens/image/고양이6.png',
         imagename: '마루',
         imagedate: '2024년 6월 13일',
         imageloc: '대전 유성구 대학로 291 어은동 44'
     ),
     Imagedata(
-        imagenum: 7,
+        imagenum: 14,
         imageurl: 'lib/screens/image/고양이7.png',
         imagename: 'Laptop',
         imagedate: '2024-12-27'),
     Imagedata(
-        imagenum: 8,
+        imagenum: 15,
         imageurl: 'lib/screens/image/고양이8.png',
         imagename: 'Laptop',
         imagedate: '2024-12-27'),
     Imagedata(
-        imagenum: 9,
+        imagenum: 16,
         imageurl: 'lib/screens/image/고양이9.png',
         imagename: 'Laptop',
         imagedate: '2024-12-27'),
@@ -132,12 +181,12 @@ class _imagelist extends State<imagelist> {
     return Scaffold(
       backgroundColor: Colors.white,
       body: GridView.builder(
-          itemCount: imagelist.length,
+          itemCount: imagelist.length ,
           gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
             mainAxisSpacing: 5,
-            crossAxisCount: 3,
+            crossAxisCount: 2,
             crossAxisSpacing: 5,
-            childAspectRatio: 0.66,
+            childAspectRatio: 1,
           ),
           padding: const EdgeInsets.all(2),
           itemBuilder: (context, index) {
@@ -185,7 +234,7 @@ Widget imageContainer({
       child: Image.asset(
         imageurl,
         fit: BoxFit.cover,
-        height: 150,
+        height: double.infinity,
         width: double.infinity,
       ),
     ),
