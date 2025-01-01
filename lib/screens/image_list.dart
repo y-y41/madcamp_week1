@@ -135,9 +135,9 @@ class _imagelist extends State<imagelist> {
           itemCount: imagelist.length ,
           gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
             mainAxisSpacing: 5,
-            crossAxisCount: 3,
+            crossAxisCount: 2,
             crossAxisSpacing: 5,
-            childAspectRatio: 0.66,
+            childAspectRatio: 1,
           ),
           padding: const EdgeInsets.all(2),
           itemBuilder: (context, index) {
@@ -185,7 +185,7 @@ Widget imageContainer({
       child: Image.asset(
         imageurl,
         fit: BoxFit.cover,
-        height: 150,
+        height: double.infinity,
         width: double.infinity,
       ),
     ),
