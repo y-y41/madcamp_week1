@@ -445,7 +445,6 @@ class _CallPageState extends State<CallPage> {
                             style: const TextStyle(
                               fontSize: 12,
                               color: Color(0xFF0E87C8), // 파란색 링크 스타일
-                              decoration: TextDecoration.underline, // 밑줄 추가
                             ),
                           ),
                         ),
