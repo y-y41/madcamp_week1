@@ -35,12 +35,8 @@
 
 ## Details
 테마 색상: KAIST Blue
-![image.png](https://prod-files-secure.s3.us-west-2.amazonaws.com/f6cb388f-3934-47d6-9928-26d2e10eb0fc/fc98a0f9-fde9-4350-b000-12df218bdd9c/image.png)
 글씨체: Noto Sans KR, Inter
-![image.png](https://prod-files-secure.s3.us-west-2.amazonaws.com/f6cb388f-3934-47d6-9928-26d2e10eb0fc/2c53f989-2198-457e-aca1-f5a65dcbab42/image.png)
-![image.png](https://prod-files-secure.s3.us-west-2.amazonaws.com/f6cb388f-3934-47d6-9928-26d2e10eb0fc/2286c94a-1d71-41c5-9b3e-32db8d999eeb/image.png)
 마스코트: 카고
-![splash - 복사본.png](https://prod-files-secure.s3.us-west-2.amazonaws.com/f6cb388f-3934-47d6-9928-26d2e10eb0fc/a5a0b751-cea1-405a-911d-acee8887c9ec/450ca87d-8307-4fa1-a9e9-d4a28476b4e2.png)
 
 ### Splash
 - 앱을 처음 실행하면 마스코트 **카고**가 반겨주는 스플래시 화면이 표시됩니다.
