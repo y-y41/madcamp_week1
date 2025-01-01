@@ -51,5 +51,9 @@
     <string>사진을 선택하기 위해 갤러리에 접근할 필요가 있습니다.</string>
     <key>NSPhotoLibraryAddUsageDescription</key>
     <string>사진을 저장하기 위해 갤러리에 접근할 필요가 있습니다.</string>
+    <array>
+        <string>https</string>
+        <string>instagram</string>
+    </array>
 </dict>
 </plist>
