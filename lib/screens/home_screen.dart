@@ -4,9 +4,10 @@ import 'package:madcamp_w1/screens/call_page.dart';
 import 'package:madcamp_w1/screens/image_list.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:madcamp_w1/screens/tab_3.dart';
+import 'dart:math';
 
 class GlobalVariables {
-  static Color appBarColor = Colors.green;
+  static Color appBarColor = HSVColor.fromAHSV(1.0,(pi/3.5)/(pi/8.5+pi/3.5)*360, 1.0, 1.0).toColor();
   static void updatecolor(Color newColor) async {
     appBarColor = newColor;
     await saveColor(newColor);
@@ -23,7 +24,7 @@ class GlobalVariables {
 
   static Future<void> loadColor() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    int savedColorValue = prefs.getInt('savedColor') ?? Colors.green.value;
+    int savedColorValue = prefs.getInt('savedColor') ?? HSVColor.fromAHSV(1.0,(pi/3.5)/(pi/8.5+pi/3.5)*360, 1.0, 1.0).toColor().value;
     appBarColor = Color(savedColorValue);
   }
 }
