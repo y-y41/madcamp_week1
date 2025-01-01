@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:madcamp_w1/screens/address_list.dart';
+import 'package:madcamp_w1/screens/home_screen.dart';
 import 'package:madcamp_w1/screens/setting_page.dart';
 import 'dart:math';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -159,7 +159,7 @@ class _RotatingBarState extends State<RotatingBar> with SingleTickerProviderStat
             Future.delayed(_controller.duration!,() {
               Navigator.pushAndRemoveUntil(
                 context,
-                MaterialPageRoute(builder: (context) => AddressList()),
+                MaterialPageRoute(builder: (context) => HomeScreen()),
                   (Route<dynamic> route)=>false,
               );
             });
@@ -180,7 +180,7 @@ class _RotatingBarState extends State<RotatingBar> with SingleTickerProviderStat
                         offset: Offset(150,10),
                         child: Transform.scale(
                           scale: 0.35,
-                          child: Image.network(
+                          child: Image.asset(
                             imagepaths[0],
                             fit: BoxFit.contain,
                           ),
@@ -192,7 +192,7 @@ class _RotatingBarState extends State<RotatingBar> with SingleTickerProviderStat
                     alignment: Alignment(0,0),
                     child: Transform.scale(
                       scale: a,
-                      child: Image.network(
+                      child: Image.asset(
                         (angle==minAngle||angle==maxAngle)? imagepaths[2]: imagepaths[1],
                         fit: BoxFit.contain,
                       ),

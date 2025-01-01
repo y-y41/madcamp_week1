@@ -6,6 +6,7 @@ import 'package:madcamp_w1/pages/volume_random_page.dart';
 import 'package:madcamp_w1/pages/color_setting.dart';
 import '../pages/lock_settings.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:madcamp_w1/screens/home_screen.dart';
 
 class Tab3 extends StatelessWidget {
   const Tab3({Key? key}) : super(key: key);
@@ -86,7 +87,7 @@ class Tab3 extends StatelessWidget {
                   imagePath,
                   width: 110,
                   height: 110,
-                  color: Color(0xFF0E87C8),
+                  color: GlobalVariables.appBarColor,
                   // fit: BoxFit.cover,
                 ),
               ],
