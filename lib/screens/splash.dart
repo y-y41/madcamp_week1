@@ -2,6 +2,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:madcamp_w1/main.dart';
 import 'package:madcamp_w1/screens/home_screen.dart';
+
 void main() {
   runApp(MyApp());
 }
@@ -50,14 +51,10 @@ class _SplashScreenState extends State<SplashScreen> {
                 child: Center(
                   child: Image.asset(
                     'assets/images/splash_logo.png',
-                    width: MediaQuery
-                        .of(context)
-                        .size
-                        .width * 0.7, // 화면 너비의 70%
-                    height: MediaQuery
-                        .of(context)
-                        .size
-                        .height * 0.4, // 화면 높이의 40%
+                    width:
+                        MediaQuery.of(context).size.width * 0.7, // 화면 너비의 70%
+                    height:
+                        MediaQuery.of(context).size.height * 0.4, // 화면 높이의 40%
                     fit: BoxFit.contain,
                   ),
                 ),
@@ -66,10 +63,7 @@ class _SplashScreenState extends State<SplashScreen> {
           ),
           // 문구 영역 (Positioned로 자유 배치)
           Positioned(
-            bottom: MediaQuery
-                .of(context)
-                .size
-                .height * 0.15, // 화면 높이의 25% 위치
+            bottom: MediaQuery.of(context).size.height * 0.15, // 화면 높이의 25% 위치
             left: 0,
             right: 0,
             child: Column(
@@ -78,15 +72,15 @@ class _SplashScreenState extends State<SplashScreen> {
                 Text(
                   "KAGO",
                   style: TextStyle(
-                    color: Colors.blue,
+                    color: Color(0xFF0E87C8),
                     fontSize: 25.0,
-                    fontWeight: FontWeight.w400,
+                    fontWeight: FontWeight.w700,
                   ),
                   textAlign: TextAlign.center,
                 ),
                 SizedBox(height: 10), // 문구와 로딩바 간격
                 CircularProgressIndicator(
-                  color: Colors.blue,
+                  color: Color(0xFF0E87C8),
                   strokeWidth: 3.0, // 로딩바 두께
                 ),
               ],
