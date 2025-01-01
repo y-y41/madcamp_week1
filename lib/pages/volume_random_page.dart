@@ -3,6 +3,7 @@ import 'dart:math';
 import 'package:assets_audio_player/assets_audio_player.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_volume_controller/flutter_volume_controller.dart';
+import 'package:madcamp_w1/screens/home_screen.dart';
 
 class VolumeRandomPage extends StatefulWidget {
   const VolumeRandomPage({Key? key}) : super(key: key);
@@ -136,7 +137,7 @@ class _VolumeRandomPageState extends State<VolumeRandomPage> {
                         child: ClipRRect(
                           borderRadius: BorderRadius.circular(15),
                           child: Container(
-                            color: _isStopped[index] ? null : Color(0xFF0E87C8),
+                            color: _isStopped[index] ? null : GlobalVariables.appBarColor,
                             child: !_isStopped[index]
                                 ? Center(
                                     child: Text(
@@ -204,7 +205,8 @@ class _VolumeRandomPageState extends State<VolumeRandomPage> {
                           width: 120,
                           height: 50,
                           decoration: BoxDecoration(
-                              color: _isRunning ? Colors.grey : Colors.white,
+                              color:
+                                  _isRunning ? Color(0xFFF5F5F5) : Colors.white,
                               borderRadius: BorderRadius.circular(50),
                               boxShadow: [
                                 BoxShadow(
@@ -218,15 +220,14 @@ class _VolumeRandomPageState extends State<VolumeRandomPage> {
                             child: Text(
                               '시작',
                               style: TextStyle(
-                                  fontSize: 16, fontWeight: FontWeight.w500),
+                                  color:
+                                      _isRunning ? Colors.grey : Colors.black,
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.w500),
                             ),
                           ),
                         ),
                       ),
-                      // ElevatedButton(
-                      //   onPressed: _isRunning ? null : startRandom,
-                      //   child: Text('Start'),
-                      // ),
                       SizedBox(width: 20),
                       GestureDetector(
                         onTap: _isRunning ? stopRandom : null,
@@ -234,7 +235,8 @@ class _VolumeRandomPageState extends State<VolumeRandomPage> {
                           width: 120,
                           height: 50,
                           decoration: BoxDecoration(
-                              color: _isRunning ? Colors.white : Colors.grey,
+                              color:
+                                  _isRunning ? Colors.white : Color(0xFFF5F5F5),
                               borderRadius: BorderRadius.circular(50),
                               boxShadow: [
                                 BoxShadow(
@@ -248,15 +250,14 @@ class _VolumeRandomPageState extends State<VolumeRandomPage> {
                             child: Text(
                               '종료',
                               style: TextStyle(
-                                  fontSize: 16, fontWeight: FontWeight.w500),
+                                  color:
+                                      _isRunning ? Colors.black : Colors.grey,
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.w500),
                             ),
                           ),
                         ),
                       ),
-                      // ElevatedButton(
-                      //   onPressed: _isRunning ? stopRandom : null,
-                      //   child: Text('Stop'),
-                      // ),
                     ],
                   ),
                 ],
