@@ -137,7 +137,9 @@ class _VolumeRandomPageState extends State<VolumeRandomPage> {
                         child: ClipRRect(
                           borderRadius: BorderRadius.circular(15),
                           child: Container(
-                            color: _isStopped[index] ? null : GlobalVariables.appBarColor,
+                            color: _isStopped[index]
+                                ? null
+                                : GlobalVariables.appBarColor,
                             child: !_isStopped[index]
                                 ? Center(
                                     child: Text(

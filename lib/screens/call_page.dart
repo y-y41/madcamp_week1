@@ -91,7 +91,7 @@ class _CallPageState extends State<CallPage> {
                       borderRadius: BorderRadius.circular(15)),
                   child: TextField(
                     decoration: const InputDecoration(
-                        labelText: '설명',
+                        labelText: '담당자 번호',
                         labelStyle: TextStyle(fontWeight: FontWeight.w400),
                         border: InputBorder.none),
                     onChanged: (value) => description = value,
@@ -399,7 +399,7 @@ class _CallPageState extends State<CallPage> {
                               CrossAxisAlignment.start, // 텍스트 왼쪽 정렬
                           children: [
                             Text(
-                              "3살 / ${person.gender}",
+                              "${person.age} / ${person.gender}",
                               style: const TextStyle(
                                   fontSize: 14,
                                   fontWeight: FontWeight.w500,
@@ -530,14 +530,14 @@ class _CallPageState extends State<CallPage> {
                       child: TextField(
                         controller: nameController,
                         decoration: const InputDecoration(
-                            contentPadding: EdgeInsets.symmetric(vertical: 2),
+                            // contentPadding: EdgeInsets.symmetric(vertical: 2),
                             labelText: '이름',
                             labelStyle: TextStyle(fontWeight: FontWeight.w400),
                             border: InputBorder.none),
                       ),
                     ),
                     Container(
-                      height: 40,
+                      // height: 40,
                       padding: EdgeInsets.symmetric(horizontal: 10),
                       margin: EdgeInsets.only(bottom: 11),
                       decoration: BoxDecoration(
@@ -546,7 +546,7 @@ class _CallPageState extends State<CallPage> {
                       child: TextField(
                         controller: descriptionController,
                         decoration: const InputDecoration(
-                            labelText: '설명',
+                            labelText: '담당자 번호',
                             labelStyle: TextStyle(fontWeight: FontWeight.w400),
                             border: InputBorder.none),
                       ),

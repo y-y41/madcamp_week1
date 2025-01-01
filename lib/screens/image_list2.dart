@@ -80,29 +80,25 @@ class _imagelist2 extends State<imagelist2> {
         imageurl: 'lib/screens/image/고양이3.png',
         imagename: '아롱',
         imagedate: '2023년 10월 17일',
-        imageloc: '대전 유성구 대학로 291 구성동 400'
-    ),
+        imageloc: '대전 유성구 대학로 291 구성동 400'),
     Imagedata(
         imagenum: 11,
         imageurl: 'lib/screens/image/고양이4.png',
         imagename: '포리',
         imagedate: '2024년 2월 8일',
-        imageloc: '대전 유성구 어은동 52-10'
-    ),
+        imageloc: '대전 유성구 어은동 52-10'),
     Imagedata(
         imagenum: 12,
         imageurl: 'lib/screens/image/고양이5.png',
         imagename: '벼루',
         imagedate: '2022년 10월 19일',
-        imageloc: '대전 유성구 대학로 291 구성동 53-3'
-    ),
+        imageloc: '대전 유성구 대학로 291 구성동 53-3'),
     Imagedata(
         imagenum: 13,
         imageurl: 'lib/screens/image/고양이6.png',
         imagename: '마루',
         imagedate: '2024년 6월 13일',
-        imageloc: '대전 유성구 대학로 291 어은동 44'
-    ),
+        imageloc: '대전 유성구 대학로 291 어은동 44'),
     Imagedata(
         imagenum: 14,
         imageurl: 'lib/screens/image/고양이7.png',
@@ -173,32 +169,50 @@ class _imagelist2 extends State<imagelist2> {
         imageurl: 'lib/screens/image/고양이20.png',
         imagename: 'Laptop',
         imagedate: '2024-12-27'),
+    Imagedata(
+        imagenum: 21,
+        imageurl: 'assets/images/카고.png',
+        imagename: '카고',
+        imagedate: '2025-01-01'),
   ];
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
       appBar: AppBar(
-        title: const Text("Image"),
-        centerTitle: true,
+        backgroundColor: Colors.white,
+        title: const Text(
+          "이미지 선택",
+          style: TextStyle(fontSize: 24, fontWeight: FontWeight.w700),
+        ),
+        leading: IconButton(
+          icon: Icon(
+            Icons.arrow_back_ios_rounded,
+            color: Colors.black,
+          ),
+          onPressed: () {
+            Navigator.pop(context);
+          },
+        ),
       ),
       body: GridView.builder(
           itemCount: imagelist.length,
           gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
             mainAxisSpacing: 5,
-            crossAxisCount: 3,
+            crossAxisCount: 2,
             crossAxisSpacing: 5,
-            childAspectRatio: 0.66,
+            childAspectRatio: 1,
           ),
           padding: const EdgeInsets.all(2),
           itemBuilder: (context, index) {
             return GestureDetector(
-              onTap:(){
-                image_url.Image_Url=imagelist[index].imageurl ??"";
-                Navigator.pop(context,imagelist[index].imageurl);
+              onTap: () {
+                image_url.Image_Url = imagelist[index].imageurl ?? "";
+                Navigator.pop(context, imagelist[index].imageurl);
               },
               child: imageContainer(
-                imageurl: imagelist[index].imageurl ??"",
+                imageurl: imagelist[index].imageurl ?? "",
               ),
             );
           }),
@@ -226,7 +240,7 @@ Widget imageContainer({
       child: Image.asset(
         imageurl,
         fit: BoxFit.cover,
-        height: 150,
+        height: double.infinity,
         width: double.infinity,
       ),
     ),
