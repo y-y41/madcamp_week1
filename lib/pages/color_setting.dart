@@ -32,6 +32,8 @@ class _RotatingBarState extends State<RotatingBar> with SingleTickerProviderStat
   double minAngle=-pi/3.5;
   double maxAngle=pi/8.5;
   double a=0.6;
+  double x=0.0;
+  double y=0.0;
 
   bool isLoading=true;
 
@@ -78,6 +80,8 @@ class _RotatingBarState extends State<RotatingBar> with SingleTickerProviderStat
     imagepaths[1]=imagepaths[3];
     angle=0;
     a=2;
+    x=2;
+    y=0.5;
   }
 
   Color calculate(double angle) {
@@ -189,7 +193,7 @@ class _RotatingBarState extends State<RotatingBar> with SingleTickerProviderStat
                     ),
                   ),
                   Align(
-                    alignment: Alignment(0,0),
+                    alignment: Alignment(x,y),
                     child: Transform.scale(
                       scale: a,
                       child: Image.asset(
