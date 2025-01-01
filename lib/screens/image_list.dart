@@ -132,7 +132,7 @@ class _imagelist extends State<imagelist> {
     return Scaffold(
       backgroundColor: Colors.white,
       body: GridView.builder(
-          itemCount: imagelist.length + 1,
+          itemCount: imagelist.length,
           gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
             mainAxisSpacing: 5,
             crossAxisCount: 3,
