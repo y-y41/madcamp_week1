@@ -10,7 +10,7 @@ import assets_audio_player_web
 import flutter_volume_controller
 import path_provider_foundation
 import shared_preferences_foundation
-import sqflite
+import sqflite_darwin
 import url_launcher_macos
 
 func RegisterGeneratedPlugins(registry: FlutterPluginRegistry) {
