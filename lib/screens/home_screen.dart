@@ -24,7 +24,7 @@ class GlobalVariables {
 
   static Future<void> loadColor() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    int savedColorValue = prefs.getInt('savedColor') ?? HSVColor.fromAHSV(1.0,(pi/3.5)/(pi/8.5+pi/3.5)*360, 1.0, 1.0).toColor().value;
+    int savedColorValue = prefs.getInt('savedColor') ?? HSVColor.fromAHSV(1.0,204.42,0.9299,0.7843).toColor().value;
     appBarColor = Color(savedColorValue);
   }
 }

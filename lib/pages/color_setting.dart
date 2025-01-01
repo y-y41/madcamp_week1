@@ -82,7 +82,7 @@ class _RotatingBarState extends State<RotatingBar> with SingleTickerProviderStat
 
   Color calculate(double angle) {
     double normalizedAngle=(angle-minAngle)/(maxAngle-minAngle);
-    Color newColor=HSVColor.fromAHSV(1.0,normalizedAngle*360, 1.0, 1.0).toColor();
+    Color newColor=HSVColor.fromAHSV(1.0,normalizedAngle*360, 0.9299, 0.7843).toColor();
     GlobalVariables.updatecolor(newColor);
     _saveAngle(newColor);
     return GlobalVariables.appBarColor;
@@ -90,7 +90,7 @@ class _RotatingBarState extends State<RotatingBar> with SingleTickerProviderStat
 
   Future<void> _loadAngle() async{
     SharedPreferences prefs=await SharedPreferences.getInstance();
-    double savedAngle=prefs.getDouble('rotationAngle')?? 0.0;
+    double savedAngle=prefs.getDouble('rotationAngle')?? (204.42/360)*(maxAngle-minAngle)+minAngle;
     int savedColorValue=prefs.getInt('savedColor') ?? Colors.green.value;
     setState(() {
       angle=savedAngle;
